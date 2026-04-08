@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Perfecto</title>
+
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="https://m.animertr.com/assets/css/font-awesome.min.css">
+
+<!-- Open Sans -->
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+/* RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+  color:white;
+  background: #1f2937;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* HEADER */
+.header {
+  background: #312e81;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1250px;
+  margin: 0 auto; /* 🔥 centra horizontalmente */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 10px 10px; /* Arriba | Derecha | Abajo | Izquierda */
+}
+
+/* LOGO */
+.logo img {
+  height: 35px;
+  display: block;
+  filter: saturate(1.4) brightness(1.1);
+}
+
+/* ICONOS DERECHA */
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actions i {
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.actions i:hover {
+  color: #775cdc;
+}
+
+/* MENÚ IZQUIERDA */
+#menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #00384d;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  z-index: 2000;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#menu.open {
+  left: 0;
+}
+
+/* LINKS */
+.menu-links a {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.menu-links a:hover {
+  background: rgba(255,255,255,0.1);
+}
+.menu-links a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+/* Mini Div */
+.icon-btn {
+  background: rgba(255, 255, 255, 0.08); /* 🔥 fondo suave */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde tenue */
+  padding: 10px;
+  border-radius: 5px; /* 🔥 más cuadrado redondeado */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(6px); /* ✨ efecto glass */
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.25s ease;
+}
+
+.icon-btn i {
+ color: rgba(255,255,255,0.9);
+
+  color: white;
+  font-size: 16px;
+  pointer-events: none; /* 👈 importante */
+}
+
+/* Efecto hover bonito */
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+
+}
+/* REDES ABAJO */
+.menu-social {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-social i {
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.menu-social i:hover {
+  color: #775cdc;
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1500;
+}
+
+#overlay.active {
+  display: block;
+}
+
+/* BLOQUEAR SCROLL */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* CONTENIDO DE PRUEBA */
+.content {
+  padding: 20px;
+  height: 1500px;
+}
+
+
+
+/* 🔍 BARRA DENTRO DEL HEADER */
+#searchBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #312e81;
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+  transform: translateY(-100%);
+  transition: 0.3s ease;  
+}
+
+#searchBar.active {
+  transform: translateY(0);
+}
+
+/* INPUT */
+.search-container {
+  max-width: 1250px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#searchBar input {
+  flex: 1;
+  color: #fff;
+  background:rgba(255,255,255,0.9);
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 14px;
+  outline: none;
+  min-width: 0; /* 🔥 CLAVE OCULTA */
+}
+
+/* BOTÓN X */
+#searchBar button {
+  background: rgba(255, 255, 255, 0.08); /* 🔥 fondo suave */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde tenue */
+  padding: 8px;
+  border-radius: 5px; /* 🔥 más cuadrado redondeado */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(6px); /* ✨ efecto glass */
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.25s ease;
+}
+#searchBar button i {
+ color: rgba(255,255,255,0.9);
+
+  color: white;
+  font-size: 16px;
+  pointer-events: none; /* 👈 importante */
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-container">
+<!-- LOGO IZQUIERDA -->
+<div class="logo">
+  <a href="/">
+    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+  </a>
+</div>
+
+<!-- DERECHA -->
+<div class="actions">
+  <button class="icon-btn" onclick="abrirBusqueda()">
+    <i class="fa fa-search"></i>
+  </button>
+
+  <button class="icon-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </button>
+</div>
+  </div>
+
+<div id="searchBar">
+ <div class="search-container">
+  <input type="text" id="searchInput" placeholder="Buscar anime..." />
+  <button onclick="cerrarBusqueda()">
+    <i class="fa fa-times"></i>
+  </button>
+ </div>
+</div>
+</header>
+
+<!-- OVERLAY -->
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MENÚ -->
+
+<div id="menu">
+
+  <div class="menu-links">
+      <a href="#"><i class="fa fa-home"></i>Inicio</a>
+      <a href="#"><i class="fa fa-play-circle"></i>Anime</a>
+      <a href="#"><i class="fa fa-heart"></i>Hentai</a>
+      <a href="#"><i class="fa fa-book"></i>Doujins</a>
+      <a href="#"><i class="fa fa-fire"></i>Rule34</a>
+      <a href="#"><i class="fa fa-gamepad"></i>Juegos</a>
+      <a href="#"><i class="fa fa-ban"></i>DMCA</a>
+      <a href="#"><i class="fa fa-envelope"></i>Contacto</a>
+    </div>
+
+  <div class="menu-social">
+    <a href="https://x.com/sitiosrtr" title="X/Twitter"><i class="fa fa-twitter"></i></a>
+    <a href="https://whatsapp.com/channel/0029Vb5iKDyIiRooDhF2Dj1J" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+    <a href="https://www.facebook.com/AnimeRTRh" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a href="https://www.youtube.com/@animertroficial" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+    <a href="https://www.descargasrtr.com/p/donar.html" title="Donar"><i class="fa fa-paypal"></i></a>
+  </div>
+
+</div>
+
+<div class="content">
+  <h2>Ahora sí está PERFECTO 🔥</h2>
+  <p>Sin espacios arriba ✔</p>
+  <p>Logo pegado izquierda ✔</p>
+  <p>Iconos pegados derecha ✔</p>
+  <p>Menú izquierda ✔</p>
+</div>
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  const overlay = document.getElementById("overlay");
+
+  const isOpen = menu.classList.toggle("open");
+  overlay.classList.toggle("active");
+
+  document.body.classList.toggle("no-scroll", isOpen);
+}
+function abrirBusqueda(){
+  const bar = document.getElementById("searchBar");
+  bar.classList.add("active");
+
+  setTimeout(() => {
+    document.getElementById("searchInput").focus();
+  }, 200);
+}
+
+function cerrarBusqueda(){
+  document.getElementById("searchBar").classList.remove("active");
+}
+document.getElementById("searchInput").addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    const valor = this.value.trim();
+    if(valor !== ""){
+      window.location.href = "/catalogo?search=" + encodeURIComponent(valor);
+    }
+  }
+});
+</script>
+
+</body>
+</html>

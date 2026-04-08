@@ -10,7 +10,7 @@ fetch("data-r.json")
         card.className = "card";
 
         card.innerHTML = `
-            <a href="${item.link}">
+            <a href="${item.play}">
                 <div class="thumb">
                     <img src="${item.img}" loading="lazy">
                     <div class="label">${item.label}</div>
@@ -22,7 +22,7 @@ fetch("data-r.json")
         grid.appendChild(card);
     });
 
-    data.slice(0,5).forEach(item => {
+    data.forEach(item => {
         const slide = document.createElement("div");
         slide.className = "slide";
         slide.style.backgroundImage = `url(${item.img})`;
@@ -63,31 +63,39 @@ fetch("data-r.json")
 });
 
 let index = 0;
+let slides = [];
 let interval;
 
-function showSlide() {
-    const total = document.querySelectorAll(".slide").length;
-    if (index >= total) index = 0;
-    if (index < 0) index = total - 1;
+function initSlider() {
+    slides = document.querySelectorAll(".slide");
 
-    document.getElementById("slides").style.transform =
-        `translateX(-${index * 100}%)`;
+    if (slides.length === 0) return;
+
+    slides[0].classList.add("active");
+
+    startAuto();
+}
+
+function showSlide(i) {
+    slides.forEach(s => s.classList.remove("active"));
+
+    index = (i + slides.length) % slides.length;
+
+    slides[index].classList.add("active");
 }
 
 function moveSlide(n) {
-    index += n;
-    showSlide();
-    resetInterval();
+    showSlide(index + n);
+    resetAuto();
 }
 
-function autoSlide() {
-    index++;
-    showSlide();
+function startAuto() {
+    interval = setInterval(() => {
+        showSlide(index + 1);
+    }, 4000);
 }
 
-function resetInterval() {
+function resetAuto() {
     clearInterval(interval);
-    interval = setInterval(autoSlide, 4000);
+    startAuto();
 }
-
-interval = setInterval(autoSlide, 4000);

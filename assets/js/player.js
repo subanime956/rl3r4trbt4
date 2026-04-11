@@ -44,7 +44,7 @@ function setIframe(url, btn){
   }
 
   RTR_setNav("prevBtn", NAV_LINKS.prev);
-  RTR_setNav("nextBtn", NAV_LINKS.next);}
+  RTR_setNav("nextBtn", NAV_LINKS.next);
 
   function RTR_openDownloads(){
     const list = document.getElementById("dlList");

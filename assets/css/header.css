@@ -1,0 +1,322 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  src: url('../fuentes/comic-neue/ComicNeue-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  src: url('../fuentes/comic-neue/ComicNeue-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fuentes/open-sans/OpenSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fuentes/open-sans/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fuentes/open-sans/OpenSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../fuentes/rubik/Rubik-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('../fuentes/rubik/Rubik-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('../fuentes/rubik/Rubik-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
+/* RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* HEADER */
+.header {
+  background: #312e81;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1250px;
+  margin: 0 auto; /* 🔥 centra horizontalmente */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px 10px 12px; /* Arriba | Derecha | Abajo | Izquierda */
+}
+
+/* LOGO */
+.logo img {
+  height: 35px;
+  display: block;
+  filter: saturate(1.4) brightness(1.1);
+}
+
+/* ICONOS DERECHA */
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actions i {
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.actions i:hover {
+  color: #775cdc;
+}
+
+/* MENÚ IZQUIERDA */
+#menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #00384d;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  z-index: 9999999999999999999999999999999;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#menu.open {
+  left: 0;
+}
+
+/* LINKS */
+.menu-links a {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.menu-links a:hover {
+  background: rgba(255,255,255,0.1);
+}
+.menu-links a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Mini Div */
+.icon-btn {
+  background: rgba(255, 255, 255, 0.08); /* 🔥 fondo suave */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde tenue */
+  padding: 10px;
+  border-radius: 5px; /* 🔥 más cuadrado redondeado */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(6px); /* ✨ efecto glass */
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.25s ease;
+}
+
+.icon-btn i {
+ color: rgba(255,255,255,0.9);
+
+  color: white;
+  font-size: 16px;
+  pointer-events: none; /* 👈 importante */
+}
+
+/* Efecto hover bonito */
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+
+}
+
+/* REDES ABAJO */
+.menu-social {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-social i {
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.menu-social i:hover {
+  color: #775cdc;
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1500;
+}
+
+#overlay.active {
+  display: block;
+}
+
+/* BLOQUEAR SCROLL */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* 🔍 BARRA DENTRO DEL HEADER */
+#searchBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #312e81;
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+  transform: translateY(-100%);
+  transition: 0.3s ease;  
+}
+
+#searchBar.active {
+  transform: translateY(0);
+}
+
+/* INPUT */
+.search-container {
+  max-width: 1250px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#searchBar input {
+  flex: 1;
+  color: #000;
+  background:rgba(255,255,255,0.9);
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 14px;
+  outline: none;
+  min-width: 0; /* 🔥 CLAVE OCULTA */
+}
+
+/* BOTÓN X */
+#searchBar button {
+  background: rgba(255, 255, 255, 0.08); /* 🔥 fondo suave */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde tenue */
+  padding: 8px;
+  border-radius: 5px; /* 🔥 más cuadrado redondeado */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px); /* ✨ efecto glass */
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+}
+
+#searchBar button i {
+  color: rgba(255,255,255,0.9);
+  color: white;
+  font-size: 16px;
+  pointer-events: none; /* 👈 importante */
+}
+
+
+
+/* CAMPANA */
+#notifToggle.active i {
+  color: #00d1ff;
+}
+#notifToggle.inactive i {
+  color: #fff;
+}
+
+/* PANELES */
+#notifWarning, #notifToast{
+  position:absolute;
+  top:60px;
+  right:10px;
+  width:250px;
+  background:#222;
+  color:white;
+  border-radius:10px;
+  padding:10px;
+  display:none;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  animation:fadeIn 0.2s ease;
+  z-index:3000;
+}
+
+#notifToast{
+  background:#fff;
+  color:#111;
+}
+
+#notifWarning img{
+  width:100%;
+  border-radius:6px;
+  margin-top:8px;
+  cursor:pointer;
+}
+
+.close{
+  position:absolute;
+  top:5px;
+  right:8px;
+  cursor:pointer;
+  font-size:14px;
+  color:#aaa;
+}

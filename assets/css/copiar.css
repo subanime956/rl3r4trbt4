@@ -1,0 +1,26 @@
+/* Bloquear selección en todo por defecto */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* Permitir selección solo en título y sinopsis */
+.anime-info h1,
+.sinopsis,
+.sinopsis * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Estilo visual cuando se selecciona texto */
+.anime-info h1::selection,
+.sinopsis::selection,
+.sinopsis *::selection {
+  background-color: rgba(180, 180, 180, 0.4);
+
+}

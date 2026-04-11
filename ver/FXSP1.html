@@ -138,8 +138,16 @@
   <div class="controls-row">
     <div class="controls-left">
 
-<a class="rtr-btn nav" href="ep1.html">Anterior</a>
-<a class="rtr-btn nav" href="ep3.html">Siguiente</a>
+<a class="rtr-btn nav" href="ep1.html"> 
+  <svg class="rtr-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+  Anterior</a>
+<a class="rtr-btn nav" href="ep3.html">Siguiente
+<svg class="rtr-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+</a>
 
 </div>
 
@@ -160,7 +168,7 @@
 <button class="rtr-btn rtr-action rtr-icon-btn"
    data-tooltip="Descargas"
    aria-label="Descargas"
-   onclick="RTR_openDownloads()">
+   onclick="document.getElementById('rtrOverlay').classList.add('active')">
   <svg class="rtr-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M12 3v10m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -250,8 +258,6 @@
 </div>
 </div>
 <script src="assets/js/player.js"></script>
-</div> <!-- left -->
-</div> <!-- layout -->
-</div> <!-- container-reproductor -->
+
 </body>
 </html>

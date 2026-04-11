@@ -138,19 +138,8 @@
   <div class="controls-row">
     <div class="controls-left">
 
-      <a class="rtr-btn nav" id="prevBtn" href="#">
-      <svg class="rtr-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-       Anterior
-      </a>
-      
-      <a class="rtr-btn nav" id="nextBtn" href="#">
-       Siguiente
-      <svg class="rtr-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      </a>
+<a class="rtr-btn nav" href="ep1.html">Anterior</a>
+<a class="rtr-btn nav" href="ep3.html">Siguiente</a>
 
 </div>
 
@@ -181,7 +170,7 @@
 </div>
 </div>
 </div>
-</div>
+
 
 <!-- SIDEBAR EDITAR CADA EPISODIO -->
 <div class="rtr-sidebar">
@@ -215,7 +204,39 @@
    🔒 Contraseña para descomprimir el archivo:
    <span>ContraseñaRTR</span>
 </div>
-<ul class="rtr-list" id="dlList"></ul>
+<ul class="rtr-list">
+
+  <li class="rtr-item">
+    <div class="rtr-name">Opción #1</div>
+    <div style="display:flex;gap:10px;">
+      <span class="rtr-tag">GRATIS</span>
+      <a class="rtr-btn" href="https://cuty.io/RawFXSP1" target="_blank">
+        Descargar
+      </a>
+    </div>
+  </li>
+
+  <li class="rtr-item">
+    <div class="rtr-name">Opción #2</div>
+    <div style="display:flex;gap:10px;">
+      <span class="rtr-tag">GRATIS</span>
+      <a class="rtr-btn" href="https://exe.io/RawFXSP1" target="_blank">
+        Descargar
+      </a>
+    </div>
+  </li>
+
+  <li class="rtr-item">
+    <div class="rtr-name">Premium</div>
+    <div style="display:flex;gap:10px;">
+      <span class="rtr-tag premium">PREMIUM</span>
+      <a class="rtr-btn" href="https://PRARTR.blogspot.com/p/rawfxsp1.html" target="_blank">
+        Descargar
+      </a>
+    </div>
+  </li>
+
+</ul>
 
 <div class="rtr-note">
      Dona o obten una Membresía desde <b>$3</b> y Elimina Anuncios en Descargas.
@@ -228,21 +249,9 @@
 </div>
 </div>
 </div>
-<!-- JS GLOBAL -->
 <script src="assets/js/player.js"></script>
-
-<script>
-/* ===== DESCARGAS DEL EP ===== */
-const EP_DOWNLOADS = [
-  { name: "Opción #1", tag: "GRATIS", href: "https://cuty.io/RawFXSP1" },
-  { name: "Opción #2", tag: "GRATIS", href: "https://exe.io/RawFXSP1" },
-  { name: "PREMIUM",  tag: "PREMIUM", href: "https://PRARTR.blogspot.com/p/rawfxsp1.html" }
-];
-
-/* ===== NAV ===== */
-RTR_setNav("prevBtn", "ep1.html");
-RTR_setNav("nextBtn", "ep3.html");
-</script>
-
+</div> <!-- left -->
+</div> <!-- layout -->
+</div> <!-- container-reproductor -->
 </body>
 </html>

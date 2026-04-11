@@ -48,7 +48,7 @@ function setIframe(url, btn){
 
   function RTR_openDownloads(){
     const list = document.getElementById("dlList");
-    list.innerHTML = "";
+    console.log(list); // 👈 prueba
 
  
 

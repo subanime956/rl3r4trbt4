@@ -24,10 +24,7 @@ function setIframe(url, btn){
   btn.classList.add("active");
 }
 
-  const NAV_LINKS = {
-    prev: "",
-    next: "#"
-  };
+  
 
   function RTR_setNav(id, url){
     const el = document.getElementById(id);
@@ -53,11 +50,7 @@ function setIframe(url, btn){
     const list = document.getElementById("dlList");
     list.innerHTML = "";
 
-    const downloads = [
-      { name: "Opción #1", tag: "GRATIS", href: "https://cuty.io/RawFXSP1" },
-      { name: "Opción #2", tag: "GRATIS", href: "https://exe.io/RawFXSP1" },
-      { name: "PREMIUM",  tag: "PREMIUM", href: "https://PRARTR.blogspot.com/p/rawfxsp1.html" }
-    ];
+ 
 
     downloads.forEach(d => {
       const li = document.createElement("li");

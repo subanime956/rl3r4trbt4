@@ -61,8 +61,8 @@ const NAV_LINKS = {
   </a>
 </div>
 
-<!-- DERECHA -->
-<div class="actions">
+  <!-- DERECHA -->
+  <div class="actions">
   <!-- 🔔 CAMPANA -->
   <button class="icon-btn" id="notifToggle">
     <i class="fa fa-bell-slash" id="bellIcon"></i>
@@ -75,13 +75,17 @@ const NAV_LINKS = {
   <button class="icon-btn" onclick="toggleMenu()">
     <i class="fa fa-bars"></i>
   </button>
-</div>
+  </div>
+
 <div id="searchBar">
-  <input type="text" id="searchInput" placeholder="Buscar anime..." />
-  <button onclick="cerrarBusqueda()">
-    <i class="fa fa-times"></i>
-  </button>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+     <button onclick="cerrarBusqueda()">
+       <i class="fa fa-times"></i>
+     </button>
+  </div>
 </div>
+
 <!-- WARNING -->
 <div id="notifWarning">
   <span class="close" id="closeWarning">✖</span>
@@ -90,11 +94,13 @@ const NAV_LINKS = {
     <img src="https://media.onesignal.com/web-sdk/bell/edge-unblock.png">
   </a>
 </div>
+
 <!-- TOAST -->
 <div id="notifToast">
   <span class="close" id="closeToast">✖</span>
   <p id="toastText" style="margin:5px 0;"></p>
 </div>
+        
 
 <!-- OVERLAY -->
 <div id="overlay" onclick="toggleMenu()"></div>

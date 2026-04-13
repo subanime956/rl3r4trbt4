@@ -1,5 +1,5 @@
 (function(){
-  const zoom = window.innerWidth <= 768 ? 0.85 : 1.00; // móvil 85%, desktop 100%
+  const zoom = window.innerWidth <= 768 ? 0.80 : 1.00; // móvil 85%, desktop 100%
 
   const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 

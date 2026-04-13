@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="/assets/js/Onesignalpush.js" defer></script>
+  
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://m.animertr.com/assets/css/font-awesome.min.css">
+<link rel="icon" href="https://m.animertr.com/assets/img/favicon.ico" type="image/x-icon">
+      
+<meta property="og:type" content="website">
+<meta content='Video 1' property='og:title'/>
+<meta content='https://rule.animertr.com/ver/FXSP1-1' property='og:url'/>
+<meta content='article' property='og:type'/>
+<meta content='AnimeRTR' property='og:site_name'/>
+<meta content='Ver video 1 de Firefly Next-Gen Biometric...' property='og:description'/>
+<meta content='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPWVgY29eKxfXZuX126coEOdmTurjrmbtseYCf44Bwvp4XfxaARnxbQj-BoQDUpnKqbi2nmGgfa4qgVVJKJaR1tRRN4FQM6k7sNmrE3lczoIGwzXH_CCunVmgtwjqE5lcV9UScn_fFlnH8H__JN4O8H74nSj-mJ8YnaTywkqlrWbtZbSESWeJOgEL_a6bW/s1280/Portada%20-%20%20FXSP1.png' property='og:image'/>
+<meta content='es_ES' property='og:locale'/>
+<meta content='en_US' property='og:locale:alternate'/>
+<meta content='en_GB' property='og:locale:alternate'/>
+<meta content='AnimeRTR: Video 1' name='twitter:title'/>
+<meta content='USARIO-TWITTER' name='twitter:site'/>
+<meta content='USARIO-TWITTER' name='twitter:creator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+
+  
+<!-- CSS Style Configuracion -->
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/portada.css">
+  <link rel="stylesheet" href="/assets/css/copiar.css">
+  <link rel="stylesheet" href="/assets/css/subir.css">
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title> Firefly - Next-Gen Biometric Authentication </title>
+
+</head>
+  
+<header class="header">
+  <div class="header-container">
+    
+<!-- LOGO IZQUIERDA -->
+<div class="logo">
+  <a href="/">
+    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+  </a>
+</div>
+
+  <!-- DERECHA -->
+  <div class="actions">
+  <!-- 🔔 CAMPANA -->
+  <button class="icon-btn" id="notifToggle">
+    <i class="fa fa-bell-slash" id="bellIcon"></i>
+  </button>
+  <!-- 🔍 BUSCADOR -->
+  <button class="icon-btn" onclick="abrirBusqueda()">
+    <i class="fa fa-search"></i>
+  </button>
+  <!-- ☰ MENU -->
+  <button class="icon-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </button>
+  </div>
+
+<div id="searchBar">
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+     <button onclick="cerrarBusqueda()">
+       <i class="fa fa-times"></i>
+     </button>
+  </div>
+</div>
+
+<!-- WARNING -->
+<div id="notifWarning">
+  <span class="close" id="closeWarning">✖</span>
+  <p style="margin:5px 0;">🔕 Notificaciones bloqueadas</p>
+  <a href="https://media.onesignal.com/web-sdk/bell/edge-unblock.png" target="_blank">
+    <img src="https://media.onesignal.com/web-sdk/bell/edge-unblock.png">
+  </a>
+</div>
+
+<!-- TOAST -->
+<div id="notifToast">
+  <span class="close" id="closeToast">✖</span>
+  <p id="toastText" style="margin:5px 0;"></p>
+</div>
+        
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MENÚ -->
+<div id="menu">
+  <div class="menu-links">
+    <a href="/"><i class="fa fa-home"></i>Inicio</a>
+    <a href="/assets/link/Anime"><i class="fa fa-play-circle"></i>Anime</a>
+    <a href="/assets/link/Hentai"><i class="fa fa-heart"></i>Hentai</a>
+    <a href="/assets/link/Doujins"><i class="fa fa-book"></i>Doujins</a>
+    <a href="/assets/link/Rule34"><i class="fa fa-fire"></i>Rule34</a>
+    <a href="/assets/link/ErogeGames"><i class="fa fa-gamepad"></i>Eroge Games</a>
+    <a href="/assets/link/DMCA"><i class="fa fa-ban"></i>DMCA</a>
+    <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
+  </div>
+
+  <div class="menu-social">
+    <a href="/assets/link/Twitter" title="X/Twitter"><i class="fa fa-twitter"></i></a>
+    <a href="/assets/link/WhatsApp" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+    <a href="/assets/link/Facebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a href="/assets/link/YouTube" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+    <a href="/assets/link/Donar" title="Donar"><i class="fa fa-paypal"></i></a>
+  </div>
+</div>
+ 
+</header>
+   
+<body>
+<!-- JS Script Configuracion -->
+  <script src="/assets/js/header.js"></script>
+  <script src="/assets/js/subir.js" defer></script>
+  <script src="/assets/js/zoom.js"></script>
+  <script src="/assets/js/portada.js" defer></script>
+
+      
+<!-- AQUI COMIENZA EL HTML NORMAL CON JS NORMAL -->
+<div class="container-reproductor">
+  <div class="rtr-page">
+
+    <!-- HERO -->
+    <section class="rtr-hero" style="--bg:url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAmPo-Hn_0kaGNFJ0zeTsq9nD6ZybXZBV1j21gqK7mID9VSioTrDh28TRdwbBkTv9zzz38F7_zpUjbqZlYYrHOLWPZALb8cBid4w9f-wjolo4btcFJhTe1m3sfI7v7IyLwacTIvQSwCOMaxciDDFCH2KQG1sivaiNaKbgZ5rRQJWWdEkGwWyaNHyXT_NeK/s640/Portada%20FNGBA.png')">
+
+      <div class="rtr-hero-inner">
+
+        <!-- Portada -->
+        <div class="rtr-cover">
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfwB0UEm1tQoWg4GNDog1z4pWk3qshQkFkImOsWRpdT-qGerniYJrgU_cnPR4Tm7W5lrrI6DvvHbCo6XcSDtyNmCmMqNfP4xyoN4MYRwZGlHQOF5HZThA-tKamC2QzUQ-QokNZgZ6ybkb8cM3TK5H-2N5W3s_Xgmu0HKyHMYFWaZQbwk05qE9gBIjYSNfT/s640/FNGBA%20Portada%20PG.png"
+            alt="Portada">
+        </div>
+
+        <!-- Info -->
+<div class="rtr-info">
+
+  <div class="rtr-info-top">
+    <h1 class="rtr-title">Firefly - Next-Gen Biometric Authentication</h1>
+    <p class="rtr-subjp">ホタル ― 次世代生体認証</p>
+
+
+
+  </div>
+    <div class="rtr-meta">
+      <span><i class="fa fa-eercast" aria-hidden="true"></i> R34</span><span class="rtr-dot">•</span>
+      <span><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;StarryMomoko</span><span class="rtr-dot">•</span>
+      <a href="/search/label/Finalizado(R34)?&max-results=8"><span>Finalizado</span></a>
+    </div>
+
+    <div class="rtr-tags-wrap">
+      <button class="rtr-tags-nav rtr-tags-left is-hidden" type="button" aria-label="Ver categorías anteriores">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="rtr-tags" id="rtrTags" aria-label="Categorías (desliza para ver más)">
+        <a href="/search/label/HonkaiStarRail?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Honkai: Star Rail</a>
+        <a href="/search/label/Firefly(HSR)?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Firefly</a>
+        <a href="/search/label/Trailblazer(HSR)?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Trailblazer</a>
+        <a href="/search/label/BLWJB?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;BLWJB</a>
+        <a href="/search/label/Ahegao?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Ahegao</a>
+        <a href="/search/label/TTNAS?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;TTNAS</a>
+        <a href="/search/label/CMSHT?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;CMSHT</a>
+        <a href="/search/label/creampie?&max-results=8" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Creampie</a>
+      </div>
+
+      <button class="rtr-tags-nav rtr-tags-right" type="button" aria-label="Ver más categorías">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="rtr-desc">
+      Esta es una Rule, por lo que no cuenta con una sinopsis. Me gustaría aprovechar este espacio para agradecer a todos los seguidores de la página por el apoyo que brindan a este proyecto. De verdad, se los agradezco de todo corazón. Thanks.
+    </p>
+  <div class="rtr-info-bottom">
+
+
+    <div class="rtr-actions">
+      <a class="rtr-btn" href="/p/starrymomoko.html">
+        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;StarryMomoko
+      </a>
+
+      <a class="rtr-btn" href="#" onclick="return false;">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7.2 7.2A7.5 7.5 0 1 1 6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 4v3.6H3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 8.2v4l2.6 1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Cronología
+      </a>
+    </div>
+  </div>
+
+</div>    </section>
+  </div>
+    <!-- EPISODIOS -->
+
+  <!-- ✅ EPISODIOS FUERA de .rtr-page -->
+  <div class="rtr-episodes-outer">
+    <div class="rtr-container">
+      <div class="rtr-episodes-wrap">
+        <section class="rtr-episodes">
+          <div class="rtr-episodes-head">
+            <h2 class="rtr-episodes-title">Episodios</h2>
+
+            <div class="rtr-lang">
+              <button class="rtr-lang-btn" id="langBtn"
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="langMenu">
+                <span class="rtr-lang-ico" aria-hidden="true">🌐</span>
+                <span>Idiomas</span>
+                <span class="rtr-lang-pill" id="langCurrentPill">Sub</span>
+                <svg class="rtr-lang-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <div class="rtr-lang-menu" id="langMenu" role="menu" aria-label="Seleccionar idioma">
+                <button type="button" class="rtr-lang-item is-active" data-lang="sub" role="menuitem">
+                  Sub <span class="rtr-lang-note">Sub Español</span>
+                </button>
+                <button type="button" class="rtr-lang-item" data-lang="raw" role="menuitem">
+                  Raw <span class="rtr-lang-note">Sin subs</span>
+                </button>
+                <button type="button" class="rtr-lang-item" data-lang="latino" role="menuitem">
+                  Latino <span class="rtr-lang-note">Audio LAT</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rtr-ep-grid" id="episodesGrid">
+            <a class="rtr-ep-card" data-lang="sub" href="/p/eatp-1.html">
+              <div class="rtr-ep-thumb">
+                <img src="https://rule.animertr.com//assets/img/FNGBA-1.webp" alt="Episodio 1">
+                <div class="rtr-ep-badge">Episodio 1</div>
+              </div>
+            </a>
+
+            <a class="rtr-ep-card" data-lang="raw" href="/p/eatp-2.html">
+              <div class="rtr-ep-thumb">
+                <img src="https://i.ytimg.com/vi/5NV6Rdv1a3I/maxresdefault.jpg" alt="Episodio 2">
+                <div class="rtr-ep-badge">Episodio 2</div>
+              </div>
+            </a>
+
+            <a class="rtr-ep-card" data-lang="latino" href="/p/eatp-3.html">
+              <div class="rtr-ep-thumb">
+                <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Episodio 3">
+                <div class="rtr-ep-badge">Episodio 3</div>
+              </div>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

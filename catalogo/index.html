@@ -1,0 +1,140 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Catalogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="catalog-header-wrap">
+      <div class="catalog-header-top">
+        <div class="catalog-header-left">
+          <h1 class="catalog-title">Catalogo</h1>
+
+          <div id="searchChip" class="search-chip" style="display:none;">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10.5 3a7.5 7.5 0 1 1 0 15a7.5 7.5 0 0 1 0-15zm0 2a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11zm8.9 12.5l2.6 2.6l-1.4 1.4l-2.6-2.6z"/>
+            </svg>
+            <span id="searchChipText"></span>
+          </div>
+
+          <div class="catalog-header-right">
+            <div class="catalog-meta">
+              <strong id="resultadoCantidad">0</strong>
+              <span>Resultados</span>
+            </div>
+
+            <button class="filter-btn" id="openFiltersBtn" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16v2H4V7zm3 5h10v2H7v-2zm3 5h4v2h-4v-2z"/>
+              </svg>
+              <span>Filtros</span>
+              <span id="filterCountBadge" class="filter-count-badge" style="display:none;">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-modal-backdrop" id="filterModalBackdrop"></div>
+
+    <div class="filter-modal" id="filterModal" aria-hidden="true">
+      <div class="filter-modal-box">
+        <div class="filter-modal-header">
+          <h2>Filtrar</h2>
+          <button type="button" class="filter-close-btn" id="closeFiltersBtn" aria-label="Cerrar">×</button>
+        </div>
+
+        <form id="filterForm">
+          <div class="filter-block">
+            <div class="select-box">
+              <button class="select-display" type="button" id="toggleGenresBtn">
+                <span class="label-soft">Género:</span>
+                <span class="value-strong" id="genresSummary">Seleccionar</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
+              </button>
+              <div class="select-panel" id="genrePanel"></div>
+            </div>
+          </div>
+         <div class="filter-block">
+            <div class="select-box">
+              <button class="select-display" type="button" id="toggleEstadoBtn">
+                <span class="label-soft">Estado:</span>
+                <span class="value-strong" id="estadoSummary">Seleccionar</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
+              </button>
+              <div class="select-panel" id="estadoPanel">
+                <label class="option-row">
+                  <input type="radio" name="estado" value="">
+                  <span class="radio-ui"></span>
+                  <span>Seleccionar</span>
+                </label>
+                <label class="option-row">
+                  <input type="radio" name="estado" value="finalizado">
+                  <span class="radio-ui"></span>
+                  <span>Finalizado</span>
+                </label>
+                <label class="option-row">
+                  <input type="radio" name="estado" value="emision">
+                  <span class="radio-ui"></span>
+                  <span>En emisión</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-block">
+            <div class="select-box">
+              <button class="select-display" type="button" id="toggleIdiomaBtn">
+                <span class="label-soft">Idioma:</span>
+                <span class="value-strong" id="idiomaSummary">Seleccionar</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
+              </button>
+              <div class="select-panel" id="idiomaPanel">
+                <label class="option-row">
+                  <input type="radio" name="idioma" value="">
+                  <span class="radio-ui"></span>
+                  <span>Seleccionar</span>
+                </label>
+                <label class="option-row">
+                  <input type="radio" name="idioma" value="sub">
+                  <span class="radio-ui"></span>
+                  <span>Subtitulado</span>
+                </label>
+                <label class="option-row">
+                  <input type="radio" name="idioma" value="latino">
+                  <span class="radio-ui"></span>
+                  <span>Latino</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <label class="filter-check-row">
+            <input type="checkbox" id="sinCensuraCheck" name="sin_censura" value="1">
+            <span class="check-ui"></span>
+            <span>Sin Censura</span>
+          </label>
+
+          <div class="filter-actions">
+  <button type="button" id="resetFiltros" class="btn-reset">Reiniciar</button>
+  <button type="submit" class="apply-filter-btn">Filtrar</button>
+</div>
+        </form>
+      </div>
+    </div>
+
+    <div id="resultados" class="container"></div>
+    <div id="paginacion"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

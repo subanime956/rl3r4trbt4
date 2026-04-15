@@ -16,7 +16,7 @@
   --line:#ffffff10;
 }
 html,body{margin:0;padding:0}
-body *:not(.header):not(.header *):not(.fa):not(.fa *) {
+body *:not(.fa):not(.fa *) {
   font-family: "Inter"!important;
 }
 body{

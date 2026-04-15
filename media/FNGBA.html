@@ -6,8 +6,11 @@
 <script src="/assets/js/Onesignalpush.js" defer></script>
   
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://m.animertr.com/assets/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="https://m.animertr.com/assets/img/favicon.ico" type="image/x-icon">
       
 <meta property="og:type" content="website">
@@ -30,7 +33,6 @@
   <link rel="stylesheet" href="/assets/css/header.css">
   <link rel="stylesheet" href="/assets/css/portada.css">
   <link rel="stylesheet" href="/assets/css/copiar.css">
-  <link rel="stylesheet" href="/assets/css/subir.css">
   
 
   <meta charset="UTF-8" />
@@ -67,12 +69,23 @@
   </div>
 
 <div id="searchBar">
-  <div class="search-container">
+ <div class="search-container">
+
+  <div class="search-input-wrap">
+    <i class="fa fa-search"></i>
     <input type="text" id="searchInput" placeholder="Buscar anime..." />
-     <button onclick="cerrarBusqueda()">
-       <i class="fa fa-times"></i>
-     </button>
   </div>
+  <!-- BOTÓN FILTROS -->
+  <a href="/catalogo/" class="filter-btn">
+    <i class="fa fa-sliders"></i>
+    <span>Filtros</span>
+  </a>
+  <!-- TU BOTÓN X -->
+  <button onclick="cerrarBusqueda()">
+    <i class="fa fa-times"></i>
+  </button>
+
+</div>
 </div>
 
 <!-- WARNING -->
@@ -121,9 +134,15 @@
 
 <!-- JS Script Configuracion -->
   <script src="/assets/js/header.js"></script>
-  <script src="/assets/js/subir.js" defer></script>
   <script src="/assets/js/zoom.js"></script>
   <script src="/assets/js/portada.js" defer></script>
+
+
+
+
+
+
+    
 
       
 <!-- AQUI COMIENZA EL HTML NORMAL CON JS NORMAL -->
@@ -273,9 +292,5 @@
   </div>
 
 </div>
-
-    <button id="scrollToTopBtn" title="Subir">
-    <i class="fa fa-arrow-up"></i>
-  </button>
 </body>
 </html>

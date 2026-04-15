@@ -9,6 +9,9 @@
   -ms-user-select: none;
   user-select: none;
 }
+html, body, *{
+  font-family: "Inter" !important;
+}
 
 /* Quitar highlight azul en móvil */
 *{

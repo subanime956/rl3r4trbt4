@@ -229,49 +229,118 @@ html, body {
 }
 
 /* INPUT */
-.search-container {
+.search-container{
   max-width: 1250px;
-  margin: 0 auto;
   width: 100%;
-  padding: 0 15px;
+  margin: 0 auto;
+  padding: 0 10px;
+
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
-#searchBar input {
+/* INPUT WRAP (FINO) */
+.search-input-wrap{
   flex: 1;
-  color: #000;
-  background:rgba(255,255,255,0.9);
-  height: 30px;
-  border: none;
-  border-radius: 6px;
+  min-width: 0;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
   padding: 0 10px;
-  font-size: 14px;
-  outline: none;
-  min-width: 0; /* 🔥 CLAVE OCULTA */
+
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: rgba(0,0,0,0.18);
 }
 
-/* BOTÓN X */
-#searchBar button {
-  background: rgba(255, 255, 255, 0.08); /* 🔥 fondo suave */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* borde tenue */
-  padding: 8px;
-  border-radius: 5px; /* 🔥 más cuadrado redondeado */
-  cursor: pointer;
+/* ICONO */
+.search-input-wrap i{
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* INPUT */
+#searchBar input{
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  font-size: 13px;
+  color: #eae6ff;
+}
+
+#searchBar input::placeholder{
+  color: rgba(255,255,255,0.4);
+}
+
+/* FILTROS (NO GORDO) */
+.filter-btn{
+  height: 34px;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  border-radius: 8px;
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #eae6ff;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+
+  transition: all .15s ease;
+}
+
+.filter-btn:hover{
+  background: rgba(255,255,255,0.14);
+}
+
+/* X (IGUAL ESTILO QUE INPUT) */
+#searchBar button{
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+
+  border: 1px solid rgba(168, 85, 247, 0.6);
+
+  background: rgba(0,0,0,0.18);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(6px); /* ✨ efecto glass */
-  -webkit-backdrop-filter: blur(6px);
-  transition: all 0.25s ease;
+
+  cursor: pointer;
+
+  transition: all .18s ease;
+
+  /* ✨ glow base */
+
 }
 
-#searchBar button i {
-  color: rgba(255,255,255,0.9);
-  color: white;
-  font-size: 16px;
-  pointer-events: none; /* 👈 importante */
+/* hover más intenso pero elegante */
+#searchBar button:hover{
+  border-color: rgba(192, 132, 252, 0.9);
+
+
+}
+
+/* icono */
+#searchBar button i{
+  font-size: 13px;
+  color: #e9d5ff;
 }
 
 

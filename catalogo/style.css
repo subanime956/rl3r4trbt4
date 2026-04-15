@@ -16,8 +16,8 @@
   --line:#ffffff10;
 }
 html,body{margin:0;padding:0}
-html, body, *{
-  font-family: "Inter" !important;
+*:not(.fa):not(.fa *) {
+  font-family: "Inter", sans-serif !important;
 }
 body{
   background:var(--bg);

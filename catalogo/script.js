@@ -26,24 +26,9 @@ const openFiltersBtn = document.getElementById("openFiltersBtn");
 const closeFiltersBtn = document.getElementById("closeFiltersBtn");
 const filterModal = document.getElementById("filterModal");
 const filterModalBackdrop = document.getElementById("filterModalBackdrop");
-
-function cerrarTodosLosModales() {
-  // Cerrar modal principal (seguro)
-  if (filterModal) filterModal.classList.remove("is-open");
-  if (filterModalBackdrop) filterModalBackdrop.classList.remove("is-open");
-  document.body.classList.remove("no-scroll");
-
-  // Cerrar paneles internos
-  if (typeof closeAllPanels === "function") closeAllPanels();
-
-  // Resetear scroll del panel de géneros (seguro)
-  if (typeof genrePanel !== "undefined" && genrePanel) {
-    genrePanel.scrollTop = 0;
-  }
-}
-
 const filterForm = document.getElementById("filterForm");
 const filterCountBadge = document.getElementById("filterCountBadge");
+const resetFiltrosBtn = document.getElementById("resetFiltros");
 
 const genrePanel = document.getElementById("genrePanel");
 const estadoPanel = document.getElementById("estadoPanel");
@@ -73,6 +58,8 @@ function capitalizeWords(text){
 }
 
 function renderGenreOptions(){
+  if (!genrePanel) return;
+
   genrePanel.innerHTML = GENEROS_DISPONIBLES.map(g => `
     <label class="option-row">
       <input type="checkbox" name="genre" value="${g}">
@@ -82,105 +69,39 @@ function renderGenreOptions(){
   `).join("");
 }
 
+function closeAllPanels(){
+  genrePanel?.classList.remove("is-open");
+  estadoPanel?.classList.remove("is-open");
+  idiomaPanel?.classList.remove("is-open");
+}
+
 function openModal(){
-  filterModal.classList.add("is-open");
-  filterModalBackdrop.classList.add("is-open");
+  filterModal?.classList.add("is-open");
+  filterModalBackdrop?.classList.add("is-open");
   document.body.classList.add("no-scroll");
 }
 
-
-function closeAllPanels(){
-  genrePanel.classList.remove("is-open");
-  estadoPanel.classList.remove("is-open");
-  idiomaPanel.classList.remove("is-open");
-}
-
 function closeModal(){
-  filterModal.classList.remove("is-open");
-  filterModalBackdrop.classList.remove("is-open");
+  filterModal?.classList.remove("is-open");
+  filterModalBackdrop?.classList.remove("is-open");
   document.body.classList.remove("no-scroll");
   closeAllPanels();
+  if (genrePanel) genrePanel.scrollTop = 0;
 }
 
-openFiltersBtn?.addEventListener("click", openModal);
-closeFiltersBtn?.addEventListener("click", closeModal);
-filterModalBackdrop?.addEventListener("click", closeModal);
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
-
-window.addEventListener("pageshow", cerrarTodosLosModales);
-window.addEventListener("popstate", cerrarTodosLosModales);
-
-toggleGenresBtn?.addEventListener("click", function(){
-  const willOpen = !genrePanel.classList.contains("is-open");
+function closeModalInstant(){
+  filterModal?.classList.remove("is-open");
+  filterModalBackdrop?.classList.remove("is-open");
+  document.body.classList.remove("no-scroll");
   closeAllPanels();
-if (willOpen) {
-  genrePanel.classList.add("is-open");
-  genrePanel.scrollTop = 0;
-}
-});
-
-toggleEstadoBtn?.addEventListener("click", function(){
-  const willOpen = !estadoPanel.classList.contains("is-open");
-  closeAllPanels();
-  if (willOpen) estadoPanel.classList.add("is-open");
-});
-
-toggleIdiomaBtn?.addEventListener("click", function(){
-  const willOpen = !idiomaPanel.classList.contains("is-open");
-  closeAllPanels();
-  if (willOpen) idiomaPanel.classList.add("is-open");
-});
-
-document.addEventListener("click", function(e){
-  const link = e.target.closest("a");
-  if (link) {
-    cerrarTodosLosModales();
-    return;
-  }
-
-  if (!filterModal.contains(e.target) && !openFiltersBtn.contains(e.target)) return;
-
-  if (!toggleGenresBtn.contains(e.target) && !genrePanel.contains(e.target)) {
-    genrePanel.classList.remove("is-open");
-    genrePanel.scrollTop = 0;
-  }
-
-  if (!toggleEstadoBtn.contains(e.target) && !estadoPanel.contains(e.target)) {
-    estadoPanel.classList.remove("is-open");
-  }
-
-  if (!toggleIdiomaBtn.contains(e.target) && !idiomaPanel.contains(e.target)) {
-    idiomaPanel.classList.remove("is-open");
-  }
-});
-if (search.trim()) {
-  searchChip.style.display = "flex";
-  searchChipText.textContent = search;
-} else {
-  searchChip.style.display = "none";
-}
-
-function updateFilterCount(){
-  let total = 0;
-  total += genres.length;
-  if (estado) total += 1;
-  if (idioma) total += 1;
-  if (sinCensura === "1") total += 1;
-
-  if (total > 0){
-    filterCountBadge.style.display = "flex";
-    filterCountBadge.textContent = total;
-  } else {
-    filterCountBadge.style.display = "none";
-  }
+  if (genrePanel) genrePanel.scrollTop = 0;
 }
 
 function updateSummaries(){
   const selectedGenres = [...document.querySelectorAll('input[name="genre"]:checked')].map(i => i.value);
-  genresSummary.textContent = selectedGenres.length ? `${selectedGenres.length} seleccionados` : "Seleccionar";
+  if (genresSummary) {
+    genresSummary.textContent = selectedGenres.length ? `${selectedGenres.length} seleccionados` : "Seleccionar";
+  }
 
   const estadoRadio = document.querySelector('input[name="estado"]:checked');
   const estadoMap = {
@@ -188,7 +109,9 @@ function updateSummaries(){
     finalizado: "Finalizado",
     emision: "En emisión"
   };
-  estadoSummary.textContent = estadoRadio ? (estadoMap[estadoRadio.value] || estadoRadio.value) : "Seleccionar";
+  if (estadoSummary) {
+    estadoSummary.textContent = estadoRadio ? (estadoMap[estadoRadio.value] || estadoRadio.value) : "Seleccionar";
+  }
 
   const idiomaRadio = document.querySelector('input[name="idioma"]:checked');
   const idiomaMap = {
@@ -196,7 +119,9 @@ function updateSummaries(){
     sub: "Subtitulado",
     latino: "Latino"
   };
-  idiomaSummary.textContent = idiomaRadio ? (idiomaMap[idiomaRadio.value] || idiomaRadio.value) : "Seleccionar";
+  if (idiomaSummary) {
+    idiomaSummary.textContent = idiomaRadio ? (idiomaMap[idiomaRadio.value] || idiomaRadio.value) : "Seleccionar";
+  }
 }
 
 function marcarFiltrosActuales(){
@@ -218,6 +143,128 @@ function marcarFiltrosActuales(){
   updateSummaries();
 }
 
+function resetearFormularioVisual() {
+  document.querySelectorAll('input[name="genre"]').forEach(input => {
+    input.checked = false;
+  });
+
+  document.querySelectorAll('input[name="estado"]').forEach(input => {
+    input.checked = input.value === "";
+  });
+
+  document.querySelectorAll('input[name="idioma"]').forEach(input => {
+    input.checked = input.value === "";
+  });
+
+  const sinCensuraInput = document.getElementById("sinCensuraCheck");
+  if (sinCensuraInput) sinCensuraInput.checked = false;
+
+  closeAllPanels();
+
+  if (genrePanel) genrePanel.scrollTop = 0;
+
+  updateSummaries();
+}
+
+function irConParams(nuevosParams) {
+  const query = nuevosParams.toString();
+
+  if (query) {
+    window.location.search = query;
+  } else {
+    window.location.href = window.location.pathname;
+  }
+}
+
+function updateFilterCount(){
+  let total = 0;
+  total += genres.length;
+  if (estado) total += 1;
+  if (idioma) total += 1;
+  if (sinCensura === "1") total += 1;
+
+  if (!filterCountBadge) return;
+
+  if (total > 0){
+    filterCountBadge.style.display = "flex";
+    filterCountBadge.textContent = total;
+  } else {
+    filterCountBadge.style.display = "none";
+  }
+}
+
+openFiltersBtn?.addEventListener("click", openModal);
+closeFiltersBtn?.addEventListener("click", closeModal);
+filterModalBackdrop?.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+window.addEventListener("pageshow", function (e) {
+  const navEntry = performance.getEntriesByType("navigation")[0];
+  const isBackForward = e.persisted || (navEntry && navEntry.type === "back_forward");
+
+  if (isBackForward) {
+    closeModalInstant();
+    resetearFormularioVisual();
+  }
+});
+
+toggleGenresBtn?.addEventListener("click", function(){
+  if (!genrePanel) return;
+
+  const willOpen = !genrePanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) {
+    genrePanel.classList.add("is-open");
+    genrePanel.scrollTop = 0;
+  }
+});
+
+toggleEstadoBtn?.addEventListener("click", function(){
+  if (!estadoPanel) return;
+
+  const willOpen = !estadoPanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) estadoPanel.classList.add("is-open");
+});
+
+toggleIdiomaBtn?.addEventListener("click", function(){
+  if (!idiomaPanel) return;
+
+  const willOpen = !idiomaPanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) idiomaPanel.classList.add("is-open");
+});
+
+document.addEventListener("click", function(e){
+  const link = e.target.closest("a");
+  if (link) {
+    closeModalInstant();
+    return;
+  }
+
+  if (!filterModal || !openFiltersBtn) return;
+  if (!filterModal.contains(e.target) && !openFiltersBtn.contains(e.target)) return;
+
+  if (toggleGenresBtn && genrePanel && !toggleGenresBtn.contains(e.target) && !genrePanel.contains(e.target)) {
+    genrePanel.classList.remove("is-open");
+    genrePanel.scrollTop = 0;
+  }
+
+  if (toggleEstadoBtn && estadoPanel && !toggleEstadoBtn.contains(e.target) && !estadoPanel.contains(e.target)) {
+    estadoPanel.classList.remove("is-open");
+  }
+
+  if (toggleIdiomaBtn && idiomaPanel && !toggleIdiomaBtn.contains(e.target) && !idiomaPanel.contains(e.target)) {
+    idiomaPanel.classList.remove("is-open");
+  }
+});
+
 document.addEventListener("change", function(e){
   if (
     e.target.matches('input[name="genre"]') ||
@@ -227,57 +274,22 @@ document.addEventListener("change", function(e){
     updateSummaries();
   }
 });
-const resetFiltrosBtn = document.getElementById("resetFiltros");
-
-function resetearFormularioVisual() {
-  // Géneros
-  document.querySelectorAll('input[name="genre"]').forEach(input => {
-    input.checked = false;
-  });
-
-  // Estado
-  document.querySelectorAll('input[name="estado"]').forEach(input => {
-    input.checked = input.value === "";
-  });
-
-  // Idioma
-  document.querySelectorAll('input[name="idioma"]').forEach(input => {
-    input.checked = input.value === "";
-  });
-
-  // Sin censura
-  const sinCensuraInput = document.getElementById("sinCensuraCheck");
-  if (sinCensuraInput) sinCensuraInput.checked = false;
-
-  // Cerrar paneles abiertos
-  closeAllPanels();
-
-  // Refrescar textos visuales
-  updateSummaries();
-}
 
 resetFiltrosBtn?.addEventListener("click", function () {
   resetearFormularioVisual();
 
-  // Deja únicamente la búsqueda actual si existe
-  const nuevosParams = new URLSearchParams();
-  if (search.trim()) nuevosParams.set("search", search);
+const nuevosParams = new URLSearchParams();
 
-  const query = nuevosParams.toString();
-
-if (query) {
-  window.location.search = query;
-} else {
-  window.location.href = window.location.pathname;
-}
+  irConParams(nuevosParams);
 });
+
 filterForm?.addEventListener("submit", function(e){
   e.preventDefault();
 
-  const nuevosParams = new URLSearchParams();
-  if (search.trim()) nuevosParams.set("search", search);
+const nuevosParams = new URLSearchParams();
 
-  const generosSeleccionados = [...document.querySelectorAll('input[name="genre"]:checked')].map(input => input.value);
+  const generosSeleccionados = [...document.querySelectorAll('input[name="genre"]:checked')]
+    .map(input => input.value);
   generosSeleccionados.forEach(g => nuevosParams.append("genre", g));
 
   const estadoSeleccionado = document.querySelector('input[name="estado"]:checked')?.value || "";
@@ -288,14 +300,15 @@ filterForm?.addEventListener("submit", function(e){
   if (idiomaSeleccionado) nuevosParams.set("idioma", idiomaSeleccionado);
   if (nuevoSinCensura) nuevosParams.set("sin_censura", "1");
 
-const query = nuevosParams.toString();
-
-if (query) {
-  window.location.search = query;
-} else {
-  window.location.href = window.location.pathname;
-}
+  irConParams(nuevosParams);
 });
+
+if (search.trim()) {
+  if (searchChip) searchChip.style.display = "flex";
+  if (searchChipText) searchChipText.textContent = search;
+} else {
+  if (searchChip) searchChip.style.display = "none";
+}
 
 function buildQuery(pageNum){
   const params = new URLSearchParams();
@@ -305,7 +318,7 @@ function buildQuery(pageNum){
   if (estado) params.set("estado", estado);
   if (idioma) params.set("idioma", idioma);
   if (sinCensura === "1") params.set("sin_censura", "1");
-  params.set("page", pageNum);
+  if (pageNum > 1) params.set("page", pageNum);
 
   return params.toString();
 }
@@ -351,14 +364,18 @@ function filtrarCatalogo(data){
 
 function renderCards(items){
   if (!items.length){
-    resultados.innerHTML = `<div class="empty-state">No se encontraron resultados.</div>`;
+    if (resultados) {
+      resultados.innerHTML = `<div class="empty-state">No se encontraron resultados.</div>`;
+    }
     return;
   }
+
+  if (!resultados) return;
 
   resultados.innerHTML = items.map(item => `
     <a class="card" href="${item.url}">
       <div class="card-thumb">
-${item.badge ? `<div class="card-badge-wrap"><div class="card-badge">${escapeHtml(item.badge)}</div></div>` : ""}
+        ${item.badge ? `<div class="card-badge-wrap"><div class="card-badge">${escapeHtml(item.badge)}</div></div>` : ""}
         <img src="${item.imagen}" alt="${escapeHtml(item.titulo)}" loading="lazy">
       </div>
       <div class="card-content">
@@ -370,6 +387,8 @@ ${item.badge ? `<div class="card-badge-wrap"><div class="card-badge">${escapeHtm
 
 function renderPagination(totalItems){
   const totalPaginas = Math.ceil(totalItems / porPagina);
+
+  if (!paginacion) return;
 
   if (totalPaginas <= 1){
     paginacion.innerHTML = "";
@@ -423,7 +442,10 @@ async function init(){
 
   const data = await loadData();
   const filtrados = filtrarCatalogo(data);
-  resultadoCantidad.textContent = filtrados.length;
+
+  if (resultadoCantidad) {
+    resultadoCantidad.textContent = filtrados.length;
+  }
 
   const inicio = (page - 1) * porPagina;
   const fin = inicio + porPagina;

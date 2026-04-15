@@ -16,8 +16,8 @@
   --line:#ffffff10;
 }
 html,body{margin:0;padding:0}
-*:not(.fa):not(.fa *) {
-  font-family: "Inter", sans-serif !important;
+body *:not(.header):not(.header *):not(.fa):not(.fa *) {
+  font-family: "Inter"!important;
 }
 body{
   background:var(--bg);
@@ -107,7 +107,7 @@ body{
   font-size:14px;
   color:var(--muted);
 }
-.filter-btn{
+.catalog-filter-btn{
   position:relative;
   display:inline-flex;
   align-items:center;
@@ -125,8 +125,8 @@ body{
   cursor:pointer;
   transition:.2s ease;
 }
-.filter-btn:hover{background:var(--soft-2)}
-.filter-btn svg{width:17px;height:17px;fill:#e9deef}
+.catalog-filter-btn:hover{background:var(--soft-2)}
+.catalog-filter-btn svg{width:17px;height:17px;fill:#e9deef}
 .filter-count-badge{
   position:absolute;
   top:-8px;
@@ -151,11 +151,7 @@ body{
   max-width:1250px;
   margin:8px auto 0;
 }
-@media (max-width:1024px){
-  .container{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
+
 @media (max-width:1024px){
   .container{
     grid-template-columns:repeat(3,1fr);
@@ -624,7 +620,7 @@ body.no-scroll .filter-modal-backdrop{
 
   .catalog-title{font-size:20px}
 
-  .filter-btn{min-width:88px;height:38px;padding:0 14px;font-size:15px}
+  .catalog-filter-btn{min-width:88px;height:38px;padding:0 14px;font-size:15px}
   .search-chip span{max-width:none}
   .filter-modal{
     align-items:center;

@@ -1,17 +1,151 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Catalogo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="/assets/js/Onesignalpush.js" defer></script>
+  
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://m.animertr.com/assets/img/favicon.ico" type="image/x-icon">
+      
+<meta property="og:type" content="website">
+<meta content='Video 1' property='og:title'/>
+<meta content='https://rule.animertr.com/ver/FXSP1-1' property='og:url'/>
+<meta content='article' property='og:type'/>
+<meta content='AnimeRTR' property='og:site_name'/>
+<meta content='Ver video 1 de Firefly Next-Gen Biometric...' property='og:description'/>
+<meta content='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPWVgY29eKxfXZuX126coEOdmTurjrmbtseYCf44Bwvp4XfxaARnxbQj-BoQDUpnKqbi2nmGgfa4qgVVJKJaR1tRRN4FQM6k7sNmrE3lczoIGwzXH_CCunVmgtwjqE5lcV9UScn_fFlnH8H__JN4O8H74nSj-mJ8YnaTywkqlrWbtZbSESWeJOgEL_a6bW/s1280/Portada%20-%20%20FXSP1.png' property='og:image'/>
+<meta content='es_ES' property='og:locale'/>
+<meta content='en_US' property='og:locale:alternate'/>
+<meta content='en_GB' property='og:locale:alternate'/>
+<meta content='AnimeRTR: Video 1' name='twitter:title'/>
+<meta content='USARIO-TWITTER' name='twitter:site'/>
+<meta content='USARIO-TWITTER' name='twitter:creator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+
+  
+<!-- CSS Style Configuracion -->
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/portada.css">
+  <link rel="stylesheet" href="/assets/css/copiar.css">
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title> Firefly - Next-Gen Biometric Authentication </title>
+
 </head>
-<body>
+  <body>
+<header class="header">
+  <div class="header-container">
+    
+<!-- LOGO IZQUIERDA -->
+<div class="logo">
+  <a href="/">
+    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+  </a>
+</div>
+
+  <!-- DERECHA -->
+  <div class="actions">
+  <!-- 🔔 CAMPANA -->
+  <button class="icon-btn" id="notifToggle">
+    <i class="fa fa-bell-slash" id="bellIcon"></i>
+  </button>
+  <!-- 🔍 BUSCADOR -->
+  <button class="icon-btn" onclick="abrirBusqueda()">
+    <i class="fa fa-search"></i>
+  </button>
+  <!-- ☰ MENU -->
+  <button class="icon-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </button>
+  </div>
+
+<div id="searchBar">
+ <div class="search-container">
+
+  <div class="search-input-wrap">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+  </div>
+  <!-- BOTÓN FILTROS -->
+  <a href="/catalogo/" class="filter-btn">
+    <i class="fa fa-sliders"></i>
+    <span>Filtros</span>
+  </a>
+  <!-- TU BOTÓN X -->
+  <button onclick="cerrarBusqueda()">
+    <i class="fa fa-times"></i>
+  </button>
+
+</div>
+</div>
+
+<!-- WARNING -->
+<div id="notifWarning">
+  <span class="close" id="closeWarning">✖</span>
+  <p style="margin:5px 0;">🔕 Notificaciones bloqueadas</p>
+  <a href="https://media.onesignal.com/web-sdk/bell/edge-unblock.png" target="_blank">
+    <img src="https://media.onesignal.com/web-sdk/bell/edge-unblock.png">
+  </a>
+</div>
+
+<!-- TOAST -->
+<div id="notifToast">
+  <span class="close" id="closeToast">✖</span>
+  <p id="toastText" style="margin:5px 0;"></p>
+</div>
+        
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MENÚ -->
+<div id="menu">
+  <div class="menu-links">
+    <a href="/"><i class="fa fa-home"></i>Inicio</a>
+    <a href="/assets/link/Anime"><i class="fa fa-play-circle"></i>Anime</a>
+    <a href="/assets/link/Hentai"><i class="fa fa-heart"></i>Hentai</a>
+    <a href="/assets/link/Doujins"><i class="fa fa-book"></i>Doujins</a>
+    <a href="/assets/link/Rule34"><i class="fa fa-fire"></i>Rule34</a>
+    <a href="/assets/link/ErogeGames"><i class="fa fa-gamepad"></i>Eroge Games</a>
+    <a href="/assets/link/DMCA"><i class="fa fa-ban"></i>DMCA</a>
+    <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
+  </div>
+
+  <div class="menu-social">
+    <a href="/assets/link/Twitter" title="X/Twitter"><i class="fa fa-twitter"></i></a>
+    <a href="/assets/link/WhatsApp" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+    <a href="/assets/link/Facebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a href="/assets/link/YouTube" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+    <a href="/assets/link/Donar" title="Donar"><i class="fa fa-paypal"></i></a>
+  </div>
+</div>
+ 
+</header>
+   
+
+<!-- JS Script Configuracion -->
+  <script src="/assets/js/header.js"></script>
+  <script src="/assets/js/zoom.js"></script>
+  <script src="/assets/js/portada.js" defer></script>
+
+
+
+
+
+
+    
+
+      
+<!-- AQUI COMIENZA EL HTML NORMAL CON JS NORMAL -->
   <div class="page">
     <div class="catalog-header-wrap">
       <div class="catalog-header-top">

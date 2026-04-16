@@ -118,15 +118,16 @@ body{
   padding:0 16px;
   border:none;
   border-radius:10px;
-  background:var(--soft);
-  color:#f6f1fb;
+  background:rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color:#fff;
   font-size:16px;
   font-weight:700;
   cursor:pointer;
   transition:.2s ease;
 }
-.catalog-filter-btn:hover{background:var(--soft-2)}
-.catalog-filter-btn svg{width:17px;height:17px;fill:#e9deef}
+.catalog-filter-btn:border: 1px solid rgba(255, 255, 255, 0.24);background:rgba(255, 255, 255, 0.12);}
+.catalog-filter-btn svg{width:20px;height:20px;fill:#fff}
 .filter-count-badge{
   position:absolute;
   top:-8px;
@@ -339,7 +340,7 @@ body{
   width:min(500px,100%);
   max-height:unset;
   overflow:visible;
-  background:linear-gradient(180deg,var(--panel) 0%,var(--panel-2) 100%);
+  background:#1f2937;
   border-radius:12px;
   padding:34px 42px 40px;
   box-shadow:none;

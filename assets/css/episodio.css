@@ -10,7 +10,7 @@
   user-select: none;
 }
 html, body, *:not(.fa):not(.fa *) {
-  font-family: "Inter" !important;
+  font-family: "Inter";
 }
 
 /* Quitar highlight azul en móvil */
@@ -351,7 +351,7 @@ html, body, *:not(.fa):not(.fa *) {
     color: #9C13BF;
     font-size: 16px;
     letter-spacing:.3px;
-    font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+    font-family: 'Comic Neue'!important;
   }
 
   @media (max-width:520px){

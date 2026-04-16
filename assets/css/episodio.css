@@ -9,7 +9,7 @@
   -ms-user-select: none;
   user-select: none;
 }
-html, body, *{
+html, body, *:not(.fa):not(.fa *) {
   font-family: "Inter" !important;
 }
 

@@ -198,170 +198,216 @@ body::after{
 
   /* ===== MODAL DESCARGAS ===== */
   
-  .rtr-overlay{
-    position:fixed; inset:0;
-    background:rgba(0,0,0,.45);
-    display:none;
-    align-items:center; justify-content:center;
-    z-index:99999;
-    padding:18px;
-  }
-  .rtr-overlay.active{ display:flex; }
+ /* ===== MODAL DESCARGAS ===== */
 
-  /* Modal */
-  .rtr-modal{
-    width:min(520px, 96vw);
-    background:#fff;
-    border-radius:16px;
-    box-shadow:0 18px 60px rgba(0,0,0,.25);
-    overflow:hidden;
-    font-family: Arial, sans-serif;
-    color:#1f2937;
-  }
+.rtr-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15, 23, 42, .72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  padding:18px;
+  backdrop-filter:blur(4px);
+}
 
-  /* Header */
-  .rtr-modal-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:16px 18px;
-    border-bottom:1px solid #eef2f7;
-    background:#fff;
-  }
-  .rtr-title{
-    font-size:18px;
-    font-weight:700;
-    margin: 0 0 -6px 0;
-  }
-  .rtr-close{
-    width:34px; height:34px;
-    border:none;
-    background:#f3f4f6;
-    border-radius:10px;
-    cursor:pointer;
-    display:grid;
-    place-items:center;
-    transition:.15s ease;
-  }
-  .rtr-close:hover{ background:#e5e7eb; }
+.rtr-overlay.active{
+  display:flex;
+}
 
-  /* Body */
-  .rtr-modal-body{
-    padding:14px 14px 10px;
-    background:#fff;
-  }
-  .rtr-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin:0;
-    padding:0;
-    list-style:none;
-  }
+/* Modal */
+.rtr-modal{
+  width:min(500px,100%);
+  background:#1f2937;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  box-shadow:0 22px 70px rgba(0,0,0,.38);
+  overflow:hidden;
+  font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  color:#f3f4f6;
+}
 
-  /* Item */
-  .rtr-item{
-    background:#f5f7fb;
-    border:1px solid #eef2f7;
-    border-radius:12px;
-    padding:12px 12px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-  }
-  .rtr-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    min-width:0;
-  }
-  .rtr-name{
-    font-weight:600;
-    font-size:14px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
+/* Header */
+.rtr-modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:#1f2937; /* mismo color que el cuerpo */
+}
 
-  /* Tag (SUB / PREMIUM) */
-  .rtr-tag{
-    font-size:10px;
-    font-weight:700;
-    padding:0px 10px;
-    border-radius:999px;
-    background:#e9efff;
-    color:#2b4fd6;
-    border:1px solid rgba(43,79,214,.15);
-  }
-  .rtr-tag.premium{
-    background:rgba(255, 193, 7, .18);
-    color:#8a5b00;
-    border:1px solid rgba(138,91,0,.18);
-  }
+.rtr-title{
+  font-size:18px;
+  font-weight:700;
+  margin:0 0 -6px 0;
+  color:#fff; /* mismo color que el cuerpo */
+}
 
-  /* Download button */
-  .rtr-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:none;
-    background:#e9efff;
-    color:#1f3fbf;
-    font-weight:700;
-    font-size:13px;
-    padding:9px 12px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.15s ease;
-    text-decoration:none;
-    user-select:none;
-    white-space:nowrap;
-  }
-  .rtr-btn:hover{ background:#dfe8ff; }
-  .rtr-icon{
-    width:16px; height:16px;
-    display:inline-block;
-  }
+/* Botón cerrar */
+.rtr-close{
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.05);
+  color:#d1d5db;
+  border-radius:10px;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:.16s ease;
+}
 
-  /* Donation text */
-  .rtr-note{
-    margin:12px 4px 0;
-    padding:12px 12px;
-    background:#f8fafc;
-    border:1px dashed #e5e7eb;
-    border-radius:12px;
-    font-size:13px;
-    line-height:1.35;
-    color:#374151;
-  }
-  .rtr-note a{
-    color:#1f3fbf;
-    font-weight:800;
-    text-decoration:none;
-  }
-  .rtr-note a:hover{ text-decoration:underline; }
+.rtr-close:hover{
+  background:rgba(255,255,255,.09);
+  color:#ffffff;
+}
 
-  /* CONTRASEÑA (debajo de donación) */
-  .rtr-password-box{
-    margin:-6px 0 10px;
-    padding:10px 12px;
-    background:#fff7ed;
-    border:1px solid #fed7aa;
-    border-radius:12px;
-    font-size:13px;
-    text-align:center;
-    font-weight:700;
-    color:#7c2d12;
-  }
-  .rtr-password-box span{
-    cursor: pointer;
-    font-weight: 900;
-    color: #9C13BF;
-    font-size: 16px;
-    letter-spacing:.3px;
-    font-family: 'Comic Neue'!important;
-  }
+/* Body */
+.rtr-modal-body{
+  padding:14px 14px 10px;
+  background:#1f2937;
+}
+
+.rtr-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+/* Item */
+.rtr-item{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  padding:12px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  transition:.16s ease;
+}
+
+.rtr-item:hover{
+  background:rgba(255,255,255,.055);
+  border-color:rgba(255,255,255,.09);
+}
+
+.rtr-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.rtr-name{
+  font-weight:600;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  color:#f3f4f6;
+}
+
+/* Tags */
+.rtr-tag{
+  font-size:12px;
+  font-weight:600;
+  color:#fff;
+}
+
+.rtr-tag.premium{
+  background:rgba(245,158,11,.18);   /* naranja notorio */
+  color:#fbbf24;
+  border:1px solid rgba(245,158,11,.28);
+}
+
+/* Botón descarga */
+.rtr-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:38px;
+  padding:9px 13px;
+  border-radius:10px;
+  cursor:pointer;
+  text-decoration:none;
+  user-select:none;
+  white-space:nowrap;
+  font-weight:700;
+  font-size:13px;
+  line-height:1;
+  color:#fff;
+  background:rgba(255, 255, 255, 0.08);
+  border:1px solid rgba(255, 255, 255, 0.15);
+  transition:.16s ease;
+}
+
+.rtr-btn:hover{
+  background:rgba(255, 255, 255, 0.12);
+  border:1px solid rgba(255, 255, 255, 0.24);
+  color:#ffffff;
+}
+
+.rtr-btn:active{
+  transform:translateY(1px);
+}
+
+.rtr-icon{
+  width:16px;
+  height:16px;
+  display:inline-block;
+}
+
+/* Donation text */
+.rtr-note{
+  margin:12px 4px 0;
+  padding:12px 12px;
+  background:rgba(255,255,255,.035);
+  border:1px dashed rgba(255,255,255,.08);
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.35;
+  color:#d1d5db;
+}
+
+.rtr-note a{
+  color:#c084fc; /* morado intenso */
+  font-weight:800;
+  text-decoration:none;
+}
+
+.rtr-note a:hover{
+  color:#d8b4fe;
+  text-decoration:underline;
+}
+
+/* CONTRASEÑA */
+.rtr-password-box{
+  margin:-6px 0 10px;
+  padding:10px 12px;
+  background:rgba(245,158,11,.12); /* naranja visible */
+  border:1px solid rgba(245,158,11,.28);
+  border-radius:12px;
+  font-size:13px;
+  text-align:center;
+  font-weight:700;
+  color:#fdba74;
+}
+
+.rtr-password-box span{
+  cursor:pointer;
+  font-weight:900;
+  color:#c084fc; /* morado intenso */
+  font-size:16px;
+  letter-spacing:.3px;
+  font-family:'Comic Neue' !important;
+}
 
   @media (max-width:520px){
     .rtr-h-left{min-width:unset}

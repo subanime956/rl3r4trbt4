@@ -63,7 +63,7 @@ const closeToast = document.getElementById("closeToast");
 let toastTimeout;
 let syncInterval = null;
 
-const CACHE_KEY = "notif_ui_state_v1"; // "on" o "off"
+const CACHE_KEY = "notif_ui_state_v1";
 
 // =========================
 // UI
@@ -81,11 +81,17 @@ function updateUI(state) {
 }
 
 function saveCachedState(state) {
-  localStorage.setItem(CACHE_KEY, state ? "on" : "off");
+  try {
+    localStorage.setItem(CACHE_KEY, state ? "on" : "off");
+  } catch (e) {}
 }
 
 function getCachedState() {
-  return localStorage.getItem(CACHE_KEY);
+  try {
+    return localStorage.getItem(CACHE_KEY);
+  } catch (e) {
+    return null;
+  }
 }
 
 function applyCachedState() {
@@ -101,13 +107,8 @@ function applyCachedState() {
     return true;
   }
 
-  // si no hay cache, usar algo rápido
-  if (Notification.permission === "granted") {
-    updateUI(true);
-  } else {
-    updateUI(false);
-  }
-
+  // fallback rápido si no hay cache
+  updateUI(Notification.permission === "granted");
   return false;
 }
 
@@ -123,7 +124,7 @@ function showToast(text) {
 }
 
 // =========================
-// PRIMER PINTADO INSTANTÁNEO
+// PINTADO INSTANTÁNEO DESDE CACHE
 // =========================
 applyCachedState();
 
@@ -158,30 +159,37 @@ OneSignalDeferred.push(async function (OneSignal) {
     }
   }
 
-  // varias sincronizaciones al inicio para corregir rápido
+  function startSyncLoop() {
+    if (syncInterval) clearInterval(syncInterval);
+    syncInterval = setInterval(sync, 1000); // cada 1 segundo
+  }
+
+  // sincronización inicial rápida
   sync();
-  setTimeout(sync, 250);
-  setTimeout(sync, 800);
+  setTimeout(sync, 150);
+  setTimeout(sync, 500);
 
-  // refresco silencioso
-  syncInterval = setInterval(sync, 3000);
+  // loop constante
+  startSyncLoop();
 
-  // al volver a la pestaña
+  // cuando vuelves a la pestaña
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) sync(true);
+    if (!document.hidden) {
+      sync(true);
+    }
   });
 
-  // al enfocar ventana
+  // cuando vuelves a enfocar la ventana
   window.addEventListener("focus", () => {
     sync(true);
   });
 
-  // al volver desde cache del navegador / atrás-adelante
+  // cuando la página vuelve desde cache del navegador
   window.addEventListener("pageshow", () => {
     sync(true);
   });
 
-  // si OneSignal detecta cambio
+  // si OneSignal detecta un cambio real
   if (OneSignal.User && OneSignal.User.PushSubscription) {
     OneSignal.User.PushSubscription.addEventListener("change", function () {
       sync(true);

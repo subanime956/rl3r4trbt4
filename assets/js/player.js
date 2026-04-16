@@ -105,22 +105,16 @@ function setIframe(url, btn){
     }
   });
 
-  function copyToClipboard(element) {
+function copyToClipboard(element) {
+    const text = element.textContent;
 
-            const text = element.textContent;
+    const tempInput = document.createElement("textarea");
+    tempInput.value = text;
 
-            const tempInput = document.createElement("textarea");
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
 
-            tempInput.value = text;
-
-            document.body.appendChild(tempInput);
-
-            tempInput.select();
-
-            document.execCommand("copy");
-
-            document.body.removeChild(tempInput);
-
-            alert("Texto copiado: " + text);
-
-        }
+    alert("Contraseña copiada: " + text);
+}

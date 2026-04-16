@@ -33,6 +33,23 @@ document.getElementById("searchInput").addEventListener("keydown", function(e){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const btn = document.getElementById("notifToggle");
 const icon = document.getElementById("bellIcon");
 
@@ -44,18 +61,15 @@ const toastText = document.getElementById("toastText");
 const closeToast = document.getElementById("closeToast");
 
 let toastTimeout;
+let syncInterval = null;
 
-// estado inicial
-if (Notification.permission === "granted") {
-  icon.className = "fa fa-bell";
-  btn.classList.add("active");
-} else {
-  icon.className = "fa fa-bell-slash";
-  btn.classList.add("inactive");
-}
+const CACHE_KEY = "notif_ui_state_v1"; // "on" o "off"
 
-function updateUI(state){
-  if(state){
+// =========================
+// UI
+// =========================
+function updateUI(state) {
+  if (state) {
     icon.className = "fa fa-bell";
     btn.classList.add("active");
     btn.classList.remove("inactive");
@@ -66,7 +80,38 @@ function updateUI(state){
   }
 }
 
-function showToast(text){
+function saveCachedState(state) {
+  localStorage.setItem(CACHE_KEY, state ? "on" : "off");
+}
+
+function getCachedState() {
+  return localStorage.getItem(CACHE_KEY);
+}
+
+function applyCachedState() {
+  const cached = getCachedState();
+
+  if (cached === "on") {
+    updateUI(true);
+    return true;
+  }
+
+  if (cached === "off") {
+    updateUI(false);
+    return true;
+  }
+
+  // si no hay cache, usar algo rápido
+  if (Notification.permission === "granted") {
+    updateUI(true);
+  } else {
+    updateUI(false);
+  }
+
+  return false;
+}
+
+function showToast(text) {
   warning.style.display = "none";
   toastText.textContent = text;
   toast.style.display = "block";
@@ -77,46 +122,122 @@ function showToast(text){
   }, 2000);
 }
 
+// =========================
+// PRIMER PINTADO INSTANTÁNEO
+// =========================
+applyCachedState();
+
+// =========================
+// ONESIGNAL
+// =========================
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-OneSignalDeferred.push(async function(OneSignal){
+OneSignalDeferred.push(async function (OneSignal) {
+  async function sync(forceCheckPermission = false) {
+    try {
+      const permission = Notification.permission;
 
-  function sync(){
-    updateUI(OneSignal.User.PushSubscription.optedIn);
-  }
-
-  setTimeout(sync, 100);
-
-  btn.addEventListener("click", async function(){
-
-    const permission = Notification.permission;
-
-    if(permission === "denied"){
-      toast.style.display = "none";
-      warning.style.display = "block";
-      return;
-    }
-
-    const opted = OneSignal.User.PushSubscription.optedIn;
-
-    if(opted){
-      await OneSignal.User.PushSubscription.optOut();
-      updateUI(false);
-      showToast("🔕 Desactivaste las notificaciones");
-    } else {
-
-      if(permission === "default"){
-        await OneSignal.Notifications.requestPermission();
-      } else {
-        await OneSignal.User.PushSubscription.optIn();
+      if (permission === "denied") {
+        updateUI(false);
+        saveCachedState(false);
+        return;
       }
 
-      updateUI(true);
-      showToast("🔔 Activaste las notificaciones");
+      const opted = !!OneSignal.User.PushSubscription.optedIn;
+
+      if (forceCheckPermission && permission !== "granted") {
+        updateUI(false);
+        saveCachedState(false);
+        return;
+      }
+
+      updateUI(opted);
+      saveCachedState(opted);
+    } catch (err) {
+      console.error("Error al sincronizar notificaciones:", err);
+    }
+  }
+
+  // varias sincronizaciones al inicio para corregir rápido
+  sync();
+  setTimeout(sync, 250);
+  setTimeout(sync, 800);
+
+  // refresco silencioso
+  syncInterval = setInterval(sync, 3000);
+
+  // al volver a la pestaña
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) sync(true);
+  });
+
+  // al enfocar ventana
+  window.addEventListener("focus", () => {
+    sync(true);
+  });
+
+  // al volver desde cache del navegador / atrás-adelante
+  window.addEventListener("pageshow", () => {
+    sync(true);
+  });
+
+  // si OneSignal detecta cambio
+  if (OneSignal.User && OneSignal.User.PushSubscription) {
+    OneSignal.User.PushSubscription.addEventListener("change", function () {
+      sync(true);
+    });
+  }
+
+  btn.addEventListener("click", async function () {
+    try {
+      const permission = Notification.permission;
+
+      if (permission === "denied") {
+        toast.style.display = "none";
+        warning.style.display = "block";
+        return;
+      }
+
+      const opted = !!OneSignal.User.PushSubscription.optedIn;
+
+      if (opted) {
+        // cambio visual instantáneo
+        updateUI(false);
+        saveCachedState(false);
+
+        await OneSignal.User.PushSubscription.optOut();
+        await sync(true);
+        showToast("🔕 Desactivaste las notificaciones");
+      } else {
+        if (permission === "default") {
+          await OneSignal.Notifications.requestPermission();
+        }
+
+        if (Notification.permission === "granted") {
+          // cambio visual instantáneo
+          updateUI(true);
+          saveCachedState(true);
+
+          await OneSignal.User.PushSubscription.optIn();
+          await sync(true);
+          showToast("🔔 Activaste las notificaciones");
+        } else {
+          updateUI(false);
+          saveCachedState(false);
+          await sync(true);
+        }
+      }
+    } catch (err) {
+      console.error("Error al cambiar notificaciones:", err);
+      await sync(true);
     }
   });
 
-  closeWarning.onclick = () => warning.style.display = "none";
-  closeToast.onclick = () => toast.style.display = "none";
+  closeWarning.onclick = () => {
+    warning.style.display = "none";
+  };
 
+  closeToast.onclick = () => {
+    toast.style.display = "none";
+  };
 });

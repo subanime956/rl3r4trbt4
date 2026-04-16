@@ -67,7 +67,7 @@ function setIframe(url, btn){
 
       const tag = document.createElement("span");
       tag.className = "rtr-tag" + (d.tag === "PREMIUM" ? " premium" : "");
-      tag.textContent = d.tag === "PREMIUM" ? "PREMIUM" : "GRATIS";
+      tag.textContent = d.tag === "PREMIUM" ? "PREMIUM" : "SUB";
 
       const a = document.createElement("a");
       a.className = "rtr-btn";

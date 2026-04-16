@@ -43,11 +43,11 @@ fetch("data-r.json")
 <div class="slide-buttons">
 
     <a href="${item.play}" class="btn play">
-        <i class="fa-solid fa-circle-play"></i> Ver ahora
+        <i class="fa fa-play-circle" aria-hidden="true"></i> Ver ahora
     </a>
 
     <a href="${item.info}" class="btn info">
-        <i class="fa-solid fa-circle-info"></i> Detalles
+        <i class="fa fa-info-circle" aria-hidden="true"></i> Detalles
     </a>
 
 </div>

@@ -127,7 +127,7 @@ body{
   transition:.2s ease;
 }
 .catalog-filter-btn:border: 1px solid rgba(255, 255, 255, 0.24);background:rgba(255, 255, 255, 0.12);}
-.catalog-filter-btn svg{width:17px;height:17px;fill:#fff}
+.catalog-filter-btn svg{width:20px;height:20px;}
 .filter-count-badge{
   position:absolute;
   top:-8px;
@@ -416,8 +416,8 @@ body{
 .select-display svg{
   position:absolute;
   right:14px;
-  width:16px;
-  height:16px;
+  width:18px;
+  height:18px;
   fill:#cfc3d8;
   pointer-events:none;
 }

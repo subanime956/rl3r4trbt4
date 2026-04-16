@@ -104,3 +104,45 @@ function setIframe(url, btn){
       if(ov.classList.contains("active")) RTR_closeDownloads();
     }
   });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const passwordBox = document.querySelector(".rtr-password-box");
+  const passwordText = document.querySelector(".rtr-password-box span");
+
+  if (!passwordBox || !passwordText) return;
+
+  passwordBox.style.cursor = "pointer";
+  passwordBox.title = "Haz clic para copiar la contraseña";
+
+  passwordBox.addEventListener("click", async () => {
+    const password = passwordText.textContent.trim();
+    if (!password) return;
+
+    try {
+      await navigator.clipboard.writeText(password);
+
+      const oldText = passwordText.textContent;
+      passwordText.textContent = "Copiado ✅";
+
+      setTimeout(() => {
+        passwordText.textContent = oldText;
+      }, 1200);
+
+    } catch (error) {
+      const temp = document.createElement("textarea");
+      temp.value = password;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+
+      const oldText = passwordText.textContent;
+      passwordText.textContent = "Copiado ✅";
+
+      setTimeout(() => {
+        passwordText.textContent = oldText;
+      }, 1200);
+    }
+  });
+});
+

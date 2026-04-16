@@ -105,44 +105,22 @@ function setIframe(url, btn){
     }
   });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const passwordBox = document.querySelector(".rtr-password-box");
-  const passwordText = document.querySelector(".rtr-password-box span");
+  function copyToClipboard(element) {
 
-  if (!passwordBox || !passwordText) return;
+            const text = element.textContent;
 
-  passwordBox.style.cursor = "pointer";
-  passwordBox.title = "Haz clic para copiar la contraseña";
+            const tempInput = document.createElement("textarea");
 
-  passwordBox.addEventListener("click", async () => {
-    const password = passwordText.textContent.trim();
-    if (!password) return;
+            tempInput.value = text;
 
-    try {
-      await navigator.clipboard.writeText(password);
+            document.body.appendChild(tempInput);
 
-      const oldText = passwordText.textContent;
-      passwordText.textContent = "Copiado ✅";
+            tempInput.select();
 
-      setTimeout(() => {
-        passwordText.textContent = oldText;
-      }, 1200);
+            document.execCommand("copy");
 
-    } catch (error) {
-      const temp = document.createElement("textarea");
-      temp.value = password;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand("copy");
-      document.body.removeChild(temp);
+            document.body.removeChild(tempInput);
 
-      const oldText = passwordText.textContent;
-      passwordText.textContent = "Copiado ✅";
+            alert("Texto copiado: " + text);
 
-      setTimeout(() => {
-        passwordText.textContent = oldText;
-      }, 1200);
-    }
-  });
-});
-
+        }

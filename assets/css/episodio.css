@@ -347,6 +347,7 @@ html, body, *:not(.fa):not(.fa *) {
     color:#7c2d12;
   }
   .rtr-password-box span{
+    cursor: pointer;
     font-weight: 900;
     color: #9C13BF;
     font-size: 16px;

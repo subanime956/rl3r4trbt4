@@ -12,6 +12,14 @@
 html, body, *:not(.fa):not(.fa *) {
   font-family: "Inter";
 }
+body::after{
+  content: "a";
+  font-family: "Comic Neue";
+  font-weight: 700;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Quitar highlight azul en móvil */
 *{

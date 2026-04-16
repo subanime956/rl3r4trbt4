@@ -377,13 +377,13 @@ body::after{
 }
 
 .rtr-note a{
-  color:#c084fc; /* morado intenso */
+  color:#27A6F5; /* morado intenso */
   font-weight:800;
   text-decoration:none;
 }
 
 .rtr-note a:hover{
-  color:#d8b4fe;
+  color:#1C84C7;
   text-decoration:underline;
 }
 
@@ -403,7 +403,7 @@ body::after{
 .rtr-password-box span{
   cursor:pointer;
   font-weight:900;
-  color:#c084fc; /* morado intenso */
+  color:#f676ff; /* morado intenso */
   font-size:16px;
   letter-spacing:.3px;
   font-family:'Comic Neue' !important;

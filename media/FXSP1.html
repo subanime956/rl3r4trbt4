@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="/assets/js/Onesignalpush.js" defer></script>
+  
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://rule.animertr.com/favicon.ico" type="image/x-icon">
+      
+<meta property="og:type" content="website">
+<meta content='Ver Fern x Stark Full Animation (Part 1)' property='og:title'/>
+<meta content='https://rule.animertr.com/ver/FXSP1' property='og:url'/>
+<meta content='article' property='og:type'/>
+<meta content='RuleRTR' property='og:site_name'/>
+<meta content='Disfruta Fern x Stark Full Animation en excelente calidad...' property='og:description'/>
+<meta content='https://rule.animertr.com/assets/img/Portada-FXSP1.png' property='og:image'/>
+<meta content='es_ES' property='og:locale'/>
+<meta content='en_US' property='og:locale:alternate'/>
+<meta content='en_GB' property='og:locale:alternate'/>
+<meta content='Ver Fern x Stark Full Animation (Part 1)' name='twitter:title'/>
+<meta content='USARIO-TWITTER' name='twitter:site'/>
+<meta content='USARIO-TWITTER' name='twitter:creator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+
+  
+<!-- CSS Style Configuracion -->
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/portada.css">
+  <link rel="stylesheet" href="/assets/css/copiar.css">
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title> Fern x Stark Full Animation (Part 1) </title>
+
+</head>
+  <body>
+<header class="header">
+  <div class="header-container">
+    
+<!-- LOGO IZQUIERDA -->
+<div class="logo">
+  <a href="/">
+    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+  </a>
+</div>
+
+  <!-- DERECHA -->
+  <div class="actions">
+  <!-- 🔔 CAMPANA -->
+  <button class="icon-btn" id="notifToggle">
+    <i class="fa fa-bell-slash" id="bellIcon"></i>
+  </button>
+  <!-- 🔍 BUSCADOR -->
+  <button class="icon-btn" onclick="abrirBusqueda()">
+    <i class="fa fa-search"></i>
+  </button>
+  <!-- ☰ MENU -->
+  <button class="icon-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </button>
+  </div>
+
+<div id="searchBar">
+ <div class="search-container">
+
+  <div class="search-input-wrap">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+  </div>
+  <!-- BOTÓN FILTROS -->
+  <a href="/catalogo/" class="filter-btn">
+    <i class="fa fa-sliders"></i>
+    <span>Filtros</span>
+  </a>
+  <!-- TU BOTÓN X -->
+  <button onclick="cerrarBusqueda()">
+    <i class="fa fa-times"></i>
+  </button>
+
+</div>
+</div>
+
+<!-- WARNING -->
+<div id="notifWarning">
+  <span class="close" id="closeWarning">✖</span>
+  <p style="margin:5px 0;">🔕 Notificaciones bloqueadas</p>
+  <a href="https://media.onesignal.com/web-sdk/bell/edge-unblock.png" target="_blank">
+    <img src="https://media.onesignal.com/web-sdk/bell/edge-unblock.png">
+  </a>
+</div>
+
+<!-- TOAST -->
+<div id="notifToast">
+  <span class="close" id="closeToast">✖</span>
+  <p id="toastText" style="margin:5px 0;"></p>
+</div>
+        
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MENÚ -->
+<div id="menu">
+  <div class="menu-links">
+    <a href="/"><i class="fa fa-home"></i>Inicio</a>
+    <a href="/assets/link/Anime"><i class="fa fa-play-circle"></i>Anime</a>
+    <a href="/assets/link/Hentai"><i class="fa fa-heart"></i>Hentai</a>
+    <a href="/assets/link/Doujins"><i class="fa fa-book"></i>Doujins</a>
+    <a href="/assets/link/Rule34"><i class="fa fa-fire"></i>Rule34</a>
+    <a href="/assets/link/ErogeGames"><i class="fa fa-gamepad"></i>Eroge Games</a>
+    <a href="/assets/link/DMCA"><i class="fa fa-ban"></i>DMCA</a>
+    <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
+    <a href="/assets/link/Donar"><i class="fa fa-paypal"></i>Donar</a>
+    <a href="/assets/link/Donar"><i class="fa fa-gift"></i>Membresias</a>
+  </div>
+
+  <div class="menu-social">
+    <a href="/assets/link/Twitter" title="X/Twitter"><i class="fa fa-twitter"></i></a>
+    <a href="/assets/link/WhatsApp" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+    <a href="/assets/link/Facebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a href="/assets/link/YouTube" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+    <a href="/assets/link/Donar" title="Donar"><i class="fa fa-paypal"></i></a>
+  </div>
+</div>
+ 
+</header>
+   
+
+<!-- JS Script Configuracion -->
+  <script src="/assets/js/header.js"></script>
+  <script src="/assets/js/zoom.js"></script>
+  <script src="/assets/js/portada.js" defer></script>
+
+
+
+
+
+
+    
+
+      
+<!-- AQUI COMIENZA EL HTML NORMAL CON JS NORMAL -->
+<div class="container-reproductor">
+  <div class="rtr-page">
+
+    <!-- HERO -->
+    <section class="rtr-hero" style="--bg:url('https://rule.animertr.com/assets/img/Portada-FXSP1.png')">
+
+      <div class="rtr-hero-inner">
+
+        <!-- Portada -->
+        <div class="rtr-cover">
+          <img
+            src="https://rule.animertr.com/assets/img/FXSP1.webp"
+            alt="Portada">
+        </div>
+
+        <!-- Info -->
+<div class="rtr-info">
+
+  <div class="rtr-info-top">
+    <h1 class="rtr-title">Fern x Stark Full Animation - Part 1</h1>
+    <p class="rtr-subjp">フェルン × シュタルク ― パート1</p>
+
+
+
+  </div>
+    <div class="rtr-meta">
+      <span><i class="fa fa-eercast" aria-hidden="true"></i> R34</span><span class="rtr-dot">•</span>
+      <span><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;Maplestar</span><span class="rtr-dot">•</span>
+      <a href="/catalogo/?estado=finalizado"><span>Finalizado</span></a>
+    </div>
+
+    <div class="rtr-tags-wrap">
+      <button class="rtr-tags-nav rtr-tags-left is-hidden" type="button" aria-label="Ver categorías anteriores">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="rtr-tags" id="rtrTags" aria-label="Categorías (desliza para ver más)">
+        <a href="/catalogo/?search=Sousou%20no%20Frieren" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Sousou no Frieren</a>
+        <a href="/catalogo/?search=Fern(SNF)" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Fern</a>
+        <a href="/catalogo/?search=Stark(SNF)" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Stark</a>
+        <a href="/catalogo/?genre=Ahegao" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Ahegao</a>
+        <a href="/catalogo/?genre=Tetonas" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Tetonas</a>
+        <a href="/catalogo/?genre=Cumshot" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Cumshot</a>
+        <a href="/catalogo/?genre=Creampie" class="rtr-tag"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Creampie</a>
+      </div>
+
+      <button class="rtr-tags-nav rtr-tags-right" type="button" aria-label="Ver más categorías">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="rtr-desc">
+      Esta es una Rule, por lo que no cuenta con una sinopsis. Me gustaría aprovechar este espacio para agradecer a todos los seguidores de la página por el apoyo que brindan a este proyecto. De verdad, se los agradezco de todo corazón. Thanks.
+    </p>
+  <div class="rtr-info-bottom">
+
+
+    <div class="rtr-actions">
+      <a class="rtr-btn" href="/catalogo/?search=Maplestar">
+        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;Maplestar
+      </a>
+
+      <a class="rtr-btn" href="" onclick="return false;">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7.2 7.2A7.5 7.5 0 1 1 6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 4v3.6H3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 8.2v4l2.6 1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Cronología
+      </a>
+    </div>
+  </div>
+
+</div>    </section>
+  </div>
+    <!-- EPISODIOS -->
+
+  <!-- ✅ EPISODIOS FUERA de .rtr-page -->
+  <div class="rtr-episodes-outer">
+    <div class="rtr-container">
+      <div class="rtr-episodes-wrap">
+        <section class="rtr-episodes">
+          <div class="rtr-episodes-head">
+            <h2 class="rtr-episodes-title">Episodios</h2>
+
+            <div class="rtr-lang">
+              <button class="rtr-lang-btn" id="langBtn"
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="langMenu">
+                <span class="rtr-lang-ico" aria-hidden="true">🌐</span>
+                <span>Idiomas</span>
+                <span class="rtr-lang-pill" id="langCurrentPill">Raw</span>
+                <svg class="rtr-lang-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              
+                <button type="button" class="rtr-lang-item" data-lang="raw" role="menuitem">
+                  Raw <span class="rtr-lang-note">Sin subs</span>
+                </button>
+              
+              </div>
+            </div>
+          </div>
+
+          <div class="rtr-ep-grid" id="episodesGrid">
+            <a class="rtr-ep-card" data-lang="sub" href="/ver/FXSP1-1.html">
+              <div class="rtr-ep-thumb">
+                <img src="https://rule.animertr.com/assets/img/FXSP1-1.png" alt="Episodio 1">
+                <div class="rtr-ep-badge">Episodio 1</div>
+              </div>
+            </a>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

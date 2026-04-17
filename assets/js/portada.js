@@ -74,5 +74,12 @@
   document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") setOpen(false); });
   menu.addEventListener("click", (e)=> e.stopPropagation());
 
-  applyLang("sub");
+
+
+
+  const activeItem = menu.querySelector(".rtr-lang-item.is-active");
+  const firstItem = menu.querySelector(".rtr-lang-item");
+  const initialLang = activeItem?.dataset.lang || firstItem?.dataset.lang;
+
+  if(initialLang) applyLang(initialLang);
 })();

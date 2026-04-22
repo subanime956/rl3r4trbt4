@@ -33,7 +33,7 @@ const loadingPromises = new Map();
 let renderToken = 0;
 
 /* ===== PRECARGA CONTINUA EN BLOQUES ===== */
-const PRELOAD_BATCH_SIZE = 5;
+const PRELOAD_BATCH_SIZE = 9999;
 let backgroundPreloadIndex = 0;
 let isBackgroundPreloading = false;
 

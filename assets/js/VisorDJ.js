@@ -27,49 +27,138 @@ const images = pageNodes
   .map((img) => img.dataset.src || img.getAttribute("src"))
   .filter(Boolean);
 
+/* =========================
+   CACHE + COLA + PRIORIDAD
+========================= */
+const imageCache = new Map();
+const loadingPromises = new Map();
+let renderToken = 0;
+const PRELOAD_AHEAD = 5;
+
 function updateInputMax() {
   pageInputElement.max = images.length || 1;
 }
 
-function updateImage() {
-  if (!images.length) {
-    pageInfoElement.textContent = "0 de 0";
-    pageInputElement.value = "";
-    updateInputMax();
-    loadingPlaceholder.style.display = "none";
-    imgElement.removeAttribute("src");
-    imgElement.alt = "Sin imágenes";
-    return;
+function isIndexValid(index) {
+  return index >= 0 && index < images.length;
+}
+
+function setLoadingState(isLoading) {
+  if (isLoading) {
+    loadingPlaceholder.style.display = "flex";
+    loadingPlaceholder.classList.remove("is-hidden");
+    imgElement.classList.remove("is-visible");
+  } else {
+    imgElement.classList.add("is-visible");
+    loadingPlaceholder.classList.add("is-hidden");
+
+    setTimeout(() => {
+      if (imgElement.classList.contains("is-visible")) {
+        loadingPlaceholder.style.display = "none";
+      }
+    }, 180);
+  }
+}
+
+function loadImage(index) {
+  if (!isIndexValid(index)) {
+    return Promise.reject(new Error("Índice inválido"));
   }
 
-  loadingPlaceholder.style.display = "flex";
-  imgElement.src = images[currentPage];
-  imgElement.alt = `Página ${currentPage + 1}`;
+  if (imageCache.has(index)) {
+    return Promise.resolve(imageCache.get(index));
+  }
 
-  imgElement.onload = () => {
-    loadingPlaceholder.style.display = "none";
-  };
+  if (loadingPromises.has(index)) {
+    return loadingPromises.get(index);
+  }
 
-  imgElement.onerror = () => {
-    loadingPlaceholder.style.display = "flex";
-  };
+  const promise = new Promise((resolve, reject) => {
+    const img = new Image();
+    img.decoding = "async";
+
+    img.onload = () => {
+      imageCache.set(index, img);
+      loadingPromises.delete(index);
+      resolve(img);
+    };
+
+    img.onerror = () => {
+      loadingPromises.delete(index);
+      reject(new Error(`No se pudo cargar la imagen ${index + 1}`));
+    };
+
+    img.src = images[index];
+  });
+
+  loadingPromises.set(index, promise);
+  return promise;
+}
+
+function getPreloadOrder(center) {
+  const order = [];
+
+  for (let i = 1; i <= PRELOAD_AHEAD; i++) {
+    if (isIndexValid(center + i)) order.push(center + i);
+  }
+
+  for (let i = 1; i <= 2; i++) {
+    if (isIndexValid(center - i)) order.push(center - i);
+  }
+
+  return order;
+}
+
+function preloadAround(index) {
+  const order = getPreloadOrder(index);
+
+  order.forEach((targetIndex) => {
+    loadImage(targetIndex).catch(() => {});
+  });
+}
+
+async function renderPage(index) {
+  if (!isIndexValid(index)) return;
+
+  currentPage = index;
+  renderToken += 1;
+  const myToken = renderToken;
 
   pageInfoElement.textContent = `${currentPage + 1} de ${images.length}`;
   pageInputElement.value = currentPage + 1;
   updateInputMax();
-}
 
-function preloadImages(startIndex, count) {
-  for (let i = startIndex; i < startIndex + count && i < images.length; i++) {
-    const img = new Image();
-    img.src = images[i];
+  const cached = imageCache.get(index);
+
+  if (cached) {
+    imgElement.src = cached.src;
+    imgElement.alt = `Página ${currentPage + 1}`;
+    setLoadingState(false);
+    preloadAround(index);
+    return;
+  }
+
+  setLoadingState(true);
+
+  try {
+    const loaded = await loadImage(index);
+
+    if (myToken !== renderToken) return;
+
+    imgElement.src = loaded.src;
+    imgElement.alt = `Página ${currentPage + 1}`;
+    setLoadingState(false);
+    preloadAround(index);
+  } catch (error) {
+    if (myToken !== renderToken) return;
+    loadingPlaceholder.style.display = "flex";
+    loadingPlaceholder.classList.remove("is-hidden");
   }
 }
 
 function goToPage(index) {
-  if (index < 0 || index >= images.length) return;
-  currentPage = index;
-  updateImage();
+  if (!isIndexValid(index)) return;
+  renderPage(index);
 }
 
 function isMobileView() {
@@ -117,8 +206,8 @@ function scrollViewerBy(amount) {
 
 document.addEventListener("DOMContentLoaded", () => {
   updateInputMax();
-  updateImage();
-  preloadImages(0, 10);
+  renderPage(0);
+  preloadAround(0);
 });
 
 if (openInstructionsBtn) {
@@ -149,13 +238,13 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
     event.preventDefault();
-    prevButton.click();
+    goToPage(currentPage - 1);
     return;
   }
 
   if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
     event.preventDefault();
-    nextButton.click();
+    goToPage(currentPage + 1);
     return;
   }
 
@@ -191,18 +280,11 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 nextButton.addEventListener("click", () => {
-  if (currentPage < images.length - 1) {
-    currentPage++;
-    updateImage();
-    preloadImages(currentPage + 1, 10);
-  }
+  goToPage(currentPage + 1);
 });
 
 prevButton.addEventListener("click", () => {
-  if (currentPage > 0) {
-    currentPage--;
-    updateImage();
-  }
+  goToPage(currentPage - 1);
 });
 
 firstButton.addEventListener("click", () => {
@@ -213,26 +295,24 @@ lastButton.addEventListener("click", () => {
   goToPage(images.length - 1);
 });
 
-leftZone.addEventListener("click", () => {
-  if (currentPage > 0) {
-    currentPage--;
-    updateImage();
-  }
-});
+/* SIGUEN FUNCIONANDO SI HACES CLICK RAPIDÍSIMO */
+if (leftZone) {
+  leftZone.addEventListener("click", () => {
+    goToPage(currentPage - 1);
+  });
+}
 
-rightZone.addEventListener("click", () => {
-  if (currentPage < images.length - 1) {
-    currentPage++;
-    updateImage();
-    preloadImages(currentPage + 1, 10);
-  }
-});
+if (rightZone) {
+  rightZone.addEventListener("click", () => {
+    goToPage(currentPage + 1);
+  });
+}
 
 pageInputElement.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     const newPage = parseInt(pageInputElement.value, 10) - 1;
 
-    if (!Number.isNaN(newPage) && newPage >= 0 && newPage < images.length) {
+    if (!Number.isNaN(newPage) && isIndexValid(newPage)) {
       goToPage(newPage);
     } else {
       pageInputElement.value = images.length ? currentPage + 1 : "";

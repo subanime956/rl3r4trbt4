@@ -117,6 +117,7 @@ body,
   margin: 0;
   overflow: hidden;
   background: #f0f0f0;
+  aspect-ratio: 800 / 1200;
 }
 
 #comic-image {

@@ -362,7 +362,7 @@ input[type="number"] {
 .mobile-fullscreen-toast {
   position: fixed;
   left: 50%;
-  bottom: 18px;
+  bottom: 30px;
   transform: translateX(-50%) translateY(12px);
   background: rgba(15, 23, 42, 0.96);
   color: #fff;

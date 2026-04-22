@@ -11,19 +11,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="https://m.animertr.com/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="https://rule.animertr.com/favicon.ico" type="image/x-icon">
       
 <meta property="og:type" content="website">
-<meta content='Video 1' property='og:title'/>
-<meta content='https://rule.animertr.com/ver/FXSP1-1' property='og:url'/>
+<meta content='R34 Online | Rule.AnimeRTR.com' property='og:title'/>
+<meta content='https://rule.animertr.com' property='og:url'/>
 <meta content='article' property='og:type'/>
-<meta content='AnimeRTR' property='og:site_name'/>
-<meta content='Ver video 1 de Firefly Next-Gen Biometric...' property='og:description'/>
-<meta content='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPWVgY29eKxfXZuX126coEOdmTurjrmbtseYCf44Bwvp4XfxaARnxbQj-BoQDUpnKqbi2nmGgfa4qgVVJKJaR1tRRN4FQM6k7sNmrE3lczoIGwzXH_CCunVmgtwjqE5lcV9UScn_fFlnH8H__JN4O8H74nSj-mJ8YnaTywkqlrWbtZbSESWeJOgEL_a6bW/s1280/Portada%20-%20%20FXSP1.png' property='og:image'/>
+<meta content='RuleRTR' property='og:site_name'/>
+<meta content='El catalogo de R34 más eficiente de toda latinoamerica sin anuncios Rule.AnimeRTR.com' property='og:description'/>
+<meta content='https://rule.animertr.com/RuleRTR-Portada.webp' property='og:image'/>
 <meta content='es_ES' property='og:locale'/>
 <meta content='en_US' property='og:locale:alternate'/>
 <meta content='en_GB' property='og:locale:alternate'/>
-<meta content='AnimeRTR: Video 1' name='twitter:title'/>
+<meta content='RuleRTR' name='twitter:title'/>
 <meta content='USARIO-TWITTER' name='twitter:site'/>
 <meta content='USARIO-TWITTER' name='twitter:creator'/>
 <meta content='summary_large_image' name='twitter:card'/>
@@ -118,6 +118,8 @@
     <a href="/assets/link/ErogeGames"><i class="fa fa-gamepad"></i>Eroge Games</a>
     <a href="/assets/link/DMCA"><i class="fa fa-ban"></i>DMCA</a>
     <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
+    <a href="/assets/link/Donar"><i class="fa fa-paypal"></i>Donar</a>
+    <a href="/assets/link/Donar"><i class="fa fa-gift"></i>Membresias</a>
   </div>
 
   <div class="menu-social">
@@ -188,76 +190,114 @@
 
         <form id="filterForm">
           <div class="filter-block">
-            <div class="select-box">
-              <button class="select-display" type="button" id="toggleGenresBtn">
-                <span class="label-soft">Género:</span>
-                <span class="value-strong" id="genresSummary">Seleccionar</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
-              </button>
-              <div class="select-panel" id="genrePanel"></div>
-            </div>
-          </div>
-         <div class="filter-block">
-            <div class="select-box">
-              <button class="select-display" type="button" id="toggleEstadoBtn">
-                <span class="label-soft">Estado:</span>
-                <span class="value-strong" id="estadoSummary">Seleccionar</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
-              </button>
-              <div class="select-panel" id="estadoPanel">
-                <label class="option-row">
-                  <input type="radio" name="estado" value="">
-                  <span class="radio-ui"></span>
-                  <span>Seleccionar</span>
-                </label>
-                <label class="option-row">
-                  <input type="radio" name="estado" value="finalizado">
-                  <span class="radio-ui"></span>
-                  <span>Finalizado</span>
-                </label>
-                <label class="option-row">
-                  <input type="radio" name="estado" value="emision">
-                  <span class="radio-ui"></span>
-                  <span>En emisión</span>
-                </label>
-              </div>
-            </div>
-          </div>
+  <div class="select-box">
+    <button type="button" class="select-display" id="toggleGenresBtn">
+      <span class="label-soft">Géneros:</span>
+      <span class="value-strong" id="genresSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
 
-          <div class="filter-block">
-            <div class="select-box">
-              <button class="select-display" type="button" id="toggleIdiomaBtn">
-                <span class="label-soft">Idioma:</span>
-                <span class="value-strong" id="idiomaSummary">Seleccionar</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5l5-5z"/></svg>
-              </button>
-              <div class="select-panel" id="idiomaPanel">
-                <label class="option-row">
-                  <input type="radio" name="idioma" value="">
-                  <span class="radio-ui"></span>
-                  <span>Seleccionar</span>
-                </label>
-                <label class="option-row">
-                  <input type="radio" name="idioma" value="sub">
-                  <span class="radio-ui"></span>
-                  <span>Subtitulado</span>
-                </label>
-                <label class="option-row">
-                  <input type="radio" name="idioma" value="latino">
-                  <span class="radio-ui"></span>
-                  <span>Latino</span>
-                </label>
-              </div>
-            </div>
-          </div>
+    <div class="select-panel" id="genrePanel"></div>
+  </div>
+</div>
 
-          <label class="filter-check-row">
-            <input type="checkbox" id="sinCensuraCheck" name="sin_censura" value="1">
-            <span class="check-ui"></span>
-            <span>Sin Censura</span>
-          </label>
+<div class="filter-block">
+  <div class="select-box">
+    <button type="button" class="select-display" id="toggleCategoriasBtn">
+      <span class="label-soft">Categoría:</span>
+      <span class="value-strong" id="categoriasSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
 
-          <div class="filter-actions">
+    <div class="select-panel" id="categoriasPanel">
+      <div class="select-search-wrap">
+        <input type="text" id="categoriasSearch" class="select-search" placeholder="Buscar categoría...">
+      </div>
+      <div id="categoriasOptions"></div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-block">
+  <div class="select-box">
+    <button type="button" class="select-display" id="toggleAutoresBtn">
+      <span class="label-soft">Autor:</span>
+      <span class="value-strong" id="autoresSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
+
+    <div class="select-panel" id="autoresPanel">
+      <div class="select-search-wrap">
+        <input type="text" id="autoresSearch" class="select-search" placeholder="Buscar autor...">
+      </div>
+      <div id="autoresOptions"></div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-block">
+  <div class="select-box">
+    <button type="button" class="select-display" id="toggleEstadoBtn">
+      <span class="label-soft">Estado:</span>
+      <span class="value-strong" id="estadoSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
+
+    <div class="select-panel" id="estadoPanel">
+      <label class="option-row">
+        <input type="radio" name="estado" value="">
+        <span class="radio-ui"></span>
+        <span>Seleccionar</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="estado" value="finalizado">
+        <span class="radio-ui"></span>
+        <span>Finalizado</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="estado" value="emision">
+        <span class="radio-ui"></span>
+        <span>En emisión</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="filter-block">
+  <div class="select-box">
+    <button type="button" class="select-display" id="toggleIdiomaBtn">
+      <span class="label-soft">Idioma:</span>
+      <span class="value-strong" id="idiomaSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
+
+    <div class="select-panel" id="idiomaPanel">
+      <label class="option-row">
+        <input type="radio" name="idioma" value="">
+        <span class="radio-ui"></span>
+        <span>Seleccionar</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="idioma" value="sub">
+        <span class="radio-ui"></span>
+        <span>Subtitulado</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="idioma" value="latino">
+        <span class="radio-ui"></span>
+        <span>Latino</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<label class="filter-check-row">
+  <input type="checkbox" id="sinCensuraCheck">
+  <span class="check-ui"></span>
+  <span>Sin censura</span>
+</label>
+
+<div class="filter-actions">
   <button type="button" id="resetFiltros" class="btn-reset">Reiniciar</button>
   <button type="submit" class="apply-filter-btn">Filtrar</button>
 </div>
@@ -269,6 +309,6 @@
     <div id="paginacion"></div>
   </div>
 
-  
+  <script src="script.js"></script>
 </body>
 </html>

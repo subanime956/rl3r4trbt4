@@ -50,7 +50,7 @@ body,
   background: #000;
 }
 
-.header,
+.header-dj,
 .footer {
   display: flex;
   justify-content: space-between;
@@ -192,7 +192,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.image-viewer:fullscreen .header,
+.image-viewer:fullscreen .header-dj,
 .image-viewer:fullscreen .footer,
 .image-viewer:fullscreen .page-info,
 .image-viewer:fullscreen .page-input,

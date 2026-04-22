@@ -56,6 +56,26 @@ function hideLoading() {
   loadingPlaceholder.style.display = "none";
 }
 
+function applyImageDimensions(index) {
+  const node = pageNodes[index];
+  if (!node || !imgElement) return;
+
+  const width = node.getAttribute("width");
+  const height = node.getAttribute("height");
+
+  if (width) {
+    imgElement.setAttribute("width", width);
+  } else {
+    imgElement.removeAttribute("width");
+  }
+
+  if (height) {
+    imgElement.setAttribute("height", height);
+  } else {
+    imgElement.removeAttribute("height");
+  }
+}
+
 function loadImage(index) {
   if (!isIndexValid(index)) {
     return Promise.reject(new Error("Índice inválido"));
@@ -157,6 +177,8 @@ async function renderPage(index) {
   imgElement.onload = null;
   imgElement.onerror = null;
 
+  applyImageDimensions(index);
+
   if (imageCache.has(index)) {
     imgElement.src = imageCache.get(index).src;
     imgElement.alt = altText;
@@ -168,10 +190,10 @@ async function renderPage(index) {
   showLoading();
   imgElement.alt = altText;
 
-  /* BORRA la imagen anterior de verdad */
+  /* BORRA la imagen anterior */
   imgElement.removeAttribute("src");
 
-  /* fuerza repintado para que el navegador suelte la anterior */
+  /* fuerza repintado */
   void imgElement.offsetHeight;
 
   imgElement.onload = () => {
@@ -185,9 +207,9 @@ async function renderPage(index) {
     showLoading();
   };
 
-  /* pon la nueva en el siguiente frame */
   requestAnimationFrame(() => {
     if (myToken !== renderToken) return;
+    applyImageDimensions(index);
     imgElement.src = images[index];
   });
 }
@@ -246,11 +268,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!images.length) {
     if (pageInfoElement) pageInfoElement.textContent = "0 de 0";
     if (pageInputElement) pageInputElement.value = "";
-    if (imgElement) imgElement.removeAttribute("src");
+    if (imgElement) {
+      imgElement.removeAttribute("src");
+      imgElement.removeAttribute("width");
+      imgElement.removeAttribute("height");
+    }
     hideLoading();
     return;
   }
 
+  applyImageDimensions(0);
   renderPage(0);
   startContinuousPreload();
 });

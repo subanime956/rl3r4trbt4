@@ -119,26 +119,16 @@ body,
   background: #f0f0f0;
 }
 
-#comic-image-a,
-#comic-image-b {
+#comic-image {
   display: block;
   width: 100%;
   height: auto;
   max-width: 100%;
   border-radius: 0 !important;
   margin: 0 !important;
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 2;
   background: transparent;
-  opacity: 0;
-  pointer-events: none;
-}
-
-#comic-image-a.is-active,
-#comic-image-b.is-active {
-  position: relative;
-  opacity: 1;
 }
 
 .loading-placeholder {

@@ -139,15 +139,16 @@ body,
   background: #f0f0f0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   color: #888;
   font-size: 16px;
-  padding: 14px 12px;
+  padding: 10px;
   overflow: hidden;
   text-align: center;
   z-index: 1;
   pointer-events: none;
 }
+
 .loading-placeholder p {
   margin: 0;
   overflow: hidden;

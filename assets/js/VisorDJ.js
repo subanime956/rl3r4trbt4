@@ -107,12 +107,7 @@ async function startContinuousPreload() {
   if (isBackgroundPreloading) return;
   isBackgroundPreloading = true;
 
-  while (backgroundPreloadIndex < images.length) {
-    await preloadBatch(backgroundPreloadIndex, PRELOAD_BATCH_SIZE);
-    backgroundPreloadIndex += PRELOAD_BATCH_SIZE;
-
-    await new Promise((resolve) => setTimeout(resolve, 80));
-  }
+  await preloadBatch(0, images.length);
 
   isBackgroundPreloading = false;
 }

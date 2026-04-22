@@ -9,9 +9,6 @@ html,
 body {
   background: #1f2937 !important;
   color: #fff;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 body *:not(.fa):not(.fa *):not(.rtr-password-box span) {

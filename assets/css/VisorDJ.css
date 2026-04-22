@@ -117,6 +117,7 @@ body,
   margin: 0;
   overflow: hidden;
   background: #f0f0f0;
+  min-height: 420px;
 }
 
 #comic-image {

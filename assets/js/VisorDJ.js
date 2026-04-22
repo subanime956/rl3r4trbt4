@@ -1,8 +1,7 @@
 let currentPage = 0;
 
 const viewer = document.getElementById("imageViewer");
-const imgA = document.getElementById("comic-image-a");
-const imgB = document.getElementById("comic-image-b");
+const imgElement = document.getElementById("comic-image");
 const pageInfoElement = document.getElementById("page-info");
 const pageInputElement = document.getElementById("page-input");
 const loadingPlaceholder = document.getElementById("loadingPlaceholder");
@@ -22,8 +21,6 @@ const instructionsBackdrop = document.getElementById("instructionsBackdrop");
 const mobileFullscreenToast = document.getElementById("mobileFullscreenToast");
 
 let mobileToastTimer = null;
-let activeImg = imgA;
-let bufferImg = imgB;
 
 const pageNodes = Array.from(document.querySelectorAll(".image-list img"));
 const images = pageNodes
@@ -32,8 +29,10 @@ const images = pageNodes
 
 const imageCache = new Map();
 const loadingPromises = new Map();
+
 let renderToken = 0;
 
+/* ===== PRECARGA CONTINUA EN BLOQUES ===== */
 const PRELOAD_BATCH_SIZE = 5;
 let backgroundPreloadIndex = 0;
 let isBackgroundPreloading = false;
@@ -48,36 +47,13 @@ function isIndexValid(index) {
 }
 
 function showLoading() {
-  if (loadingPlaceholder) {
-    loadingPlaceholder.style.display = "flex";
-  }
+  if (!loadingPlaceholder) return;
+  loadingPlaceholder.style.display = "flex";
 }
 
 function hideLoading() {
-  if (loadingPlaceholder) {
-    loadingPlaceholder.style.display = "none";
-  }
-}
-
-function swapImages() {
-  const temp = activeImg;
-  activeImg = bufferImg;
-  bufferImg = temp;
-}
-
-function setActiveImage(src, altText) {
-  bufferImg.onload = null;
-  bufferImg.onerror = null;
-
-  bufferImg.alt = altText;
-  bufferImg.src = src;
-
-  bufferImg.classList.add("is-active");
-  activeImg.classList.remove("is-active");
-
-  activeImg.removeAttribute("src");
-
-  swapImages();
+  if (!loadingPlaceholder) return;
+  loadingPlaceholder.style.display = "none";
 }
 
 function loadImage(index) {
@@ -134,6 +110,7 @@ async function startContinuousPreload() {
   while (backgroundPreloadIndex < images.length) {
     await preloadBatch(backgroundPreloadIndex, PRELOAD_BATCH_SIZE);
     backgroundPreloadIndex += PRELOAD_BATCH_SIZE;
+
     await new Promise((resolve) => setTimeout(resolve, 80));
   }
 
@@ -174,16 +151,24 @@ async function renderPage(index) {
   }
 
   updateInputMax();
-  showLoading();
 
-  const altText = `Página ${currentPage + 1}`;
+  if (imageCache.has(index)) {
+    imgElement.src = imageCache.get(index).src;
+    imgElement.alt = `Página ${currentPage + 1}`;
+    hideLoading();
+    preloadNearCurrent(index);
+    return;
+  }
+
+  showLoading();
+  imgElement.alt = `Página ${currentPage + 1}`;
 
   try {
     const loaded = await loadImage(index);
 
     if (myToken !== renderToken) return;
 
-    setActiveImage(loaded.src, altText);
+    imgElement.src = loaded.src;
     hideLoading();
     preloadNearCurrent(index);
   } catch (_) {
@@ -246,12 +231,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!images.length) {
     if (pageInfoElement) pageInfoElement.textContent = "0 de 0";
     if (pageInputElement) pageInputElement.value = "";
+    if (imgElement) imgElement.removeAttribute("src");
     hideLoading();
     return;
   }
-
-  imgA.classList.add("is-active");
-  imgB.classList.remove("is-active");
 
   renderPage(0);
   startContinuousPreload();

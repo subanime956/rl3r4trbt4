@@ -154,10 +154,10 @@ async function renderPage(index) {
 
   const altText = `Página ${currentPage + 1}`;
 
-  /* si ya está en caché, mostrarla al toque */
+  imgElement.onload = null;
+  imgElement.onerror = null;
+
   if (imageCache.has(index)) {
-    imgElement.onload = null;
-    imgElement.onerror = null;
     imgElement.src = imageCache.get(index).src;
     imgElement.alt = altText;
     hideLoading();
@@ -165,16 +165,17 @@ async function renderPage(index) {
     return;
   }
 
-  /* mostrar placeholder detrás */
   showLoading();
   imgElement.alt = altText;
 
-  /* importante: cambiar el src visible de inmediato
-     para que se vea la carga real de la nueva imagen */
+  /* BORRA la imagen anterior de verdad */
+  imgElement.removeAttribute("src");
+
+  /* fuerza repintado para que el navegador suelte la anterior */
+  void imgElement.offsetHeight;
+
   imgElement.onload = () => {
     if (myToken !== renderToken) return;
-
-    imageCache.set(index, imgElement.cloneNode(false));
     hideLoading();
     preloadNearCurrent(index);
   };
@@ -184,7 +185,11 @@ async function renderPage(index) {
     showLoading();
   };
 
-  imgElement.src = images[index];
+  /* pon la nueva en el siguiente frame */
+  requestAnimationFrame(() => {
+    if (myToken !== renderToken) return;
+    imgElement.src = images[index];
+  });
 }
 
 function goToPage(index) {

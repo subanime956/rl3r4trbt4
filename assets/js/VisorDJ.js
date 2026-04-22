@@ -152,29 +152,39 @@ async function renderPage(index) {
 
   updateInputMax();
 
+  const altText = `Página ${currentPage + 1}`;
+
+  /* si ya está en caché, mostrarla al toque */
   if (imageCache.has(index)) {
+    imgElement.onload = null;
+    imgElement.onerror = null;
     imgElement.src = imageCache.get(index).src;
-    imgElement.alt = `Página ${currentPage + 1}`;
+    imgElement.alt = altText;
     hideLoading();
     preloadNearCurrent(index);
     return;
   }
 
+  /* mostrar placeholder detrás */
   showLoading();
-  imgElement.alt = `Página ${currentPage + 1}`;
+  imgElement.alt = altText;
 
-  try {
-    const loaded = await loadImage(index);
-
+  /* importante: cambiar el src visible de inmediato
+     para que se vea la carga real de la nueva imagen */
+  imgElement.onload = () => {
     if (myToken !== renderToken) return;
 
-    imgElement.src = loaded.src;
+    imageCache.set(index, imgElement.cloneNode(false));
     hideLoading();
     preloadNearCurrent(index);
-  } catch (_) {
+  };
+
+  imgElement.onerror = () => {
     if (myToken !== renderToken) return;
     showLoading();
-  }
+  };
+
+  imgElement.src = images[index];
 }
 
 function goToPage(index) {

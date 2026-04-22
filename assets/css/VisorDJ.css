@@ -45,7 +45,7 @@ body,
 
 .image-viewer.reader-wide {
   max-width: 1100px;
-}
+}overflow: hidden;
 
 .image-viewer.reader-wide .image-container {
   background: #000;
@@ -360,10 +360,6 @@ input[type="number"] {
 
 .instructions-close:hover {
   background: #1f2937;
-}
-
-body.modal-open {
-  overflow: hidden;
 }
 
 .mobile-fullscreen-toast {

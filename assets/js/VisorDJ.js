@@ -146,15 +146,19 @@ async function renderPage(index) {
   pageInputElement.value = currentPage + 1;
   updateInputMax();
 
+  /* si ya está en caché, mostrarla al toque */
   if (imageCache.has(index)) {
     imgElement.src = imageCache.get(index).src;
     imgElement.alt = `Página ${currentPage + 1}`;
-    setLoadingState(false);
+    loadingPlaceholder.style.display = "none";
     preloadNearCurrent(index);
     return;
   }
 
-  setLoadingState(true);
+  /* al cambiar de página, borra la imagen anterior visible */
+  imgElement.removeAttribute("src");
+  imgElement.alt = `Página ${currentPage + 1}`;
+  loadingPlaceholder.style.display = "flex";
 
   try {
     const loaded = await loadImage(index);
@@ -162,13 +166,11 @@ async function renderPage(index) {
     if (myToken !== renderToken) return;
 
     imgElement.src = loaded.src;
-    imgElement.alt = `Página ${currentPage + 1}`;
-    setLoadingState(false);
+    loadingPlaceholder.style.display = "none";
     preloadNearCurrent(index);
   } catch (_) {
     if (myToken !== renderToken) return;
     loadingPlaceholder.style.display = "flex";
-    loadingPlaceholder.classList.remove("is-hidden");
   }
 }
 

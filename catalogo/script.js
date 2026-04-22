@@ -7,14 +7,35 @@ const GENEROS_DISPONIBLES = [
   "sobrenatural","superpoderes","suspenso","terror","vampiros","yaoi","yuri"
 ];
 
+const CATEGORIAS_DISPONIBLES = [
+  "genshin",
+  "date a live",
+  "honkai star rail"
+];
+
+const AUTORES_DISPONIBLES = [
+  "maplestar",
+  "raimbo",
+  "minus8","demonios","deportes","drama","ecchi","escolares","espacial",
+  "fantasía","harem","historico","infantil","josei","juegos","magia","mecha",
+  "militar","misterio","música","parodia","policía","psicológico",
+  "recuentos de la vida","romance","samurai","seinen","shoujo","shounen",
+  "sobrenatural","superpoderes","suspenso","terror","vampiros","yaoi","yuri"
+];        
+
 const params = new URLSearchParams(window.location.search);
 const search = params.get("search") || "";
 const genres = params.getAll("genre");
+const categorias = params.getAll("categoria");
+const autores = params.getAll("autor");
 const estado = params.get("estado") || "";
 const idioma = params.get("idioma") || "";
 const sinCensura = params.get("sin_censura") || "";
 const page = parseInt(params.get("page")) || 1;
 const porPagina = 20;
+
+let categoriasSeleccionadasActuales = [...categorias];
+let autoresSeleccionadosActuales = [...autores];
 
 const resultados = document.getElementById("resultados");
 const paginacion = document.getElementById("paginacion");
@@ -31,12 +52,26 @@ const filterCountBadge = document.getElementById("filterCountBadge");
 const resetFiltrosBtn = document.getElementById("resetFiltros");
 
 const genrePanel = document.getElementById("genrePanel");
+const categoriasPanel = document.getElementById("categoriasPanel");
+const autoresPanel = document.getElementById("autoresPanel");
 const estadoPanel = document.getElementById("estadoPanel");
 const idiomaPanel = document.getElementById("idiomaPanel");
+
+const categoriasOptions = document.getElementById("categoriasOptions");
+const autoresOptions = document.getElementById("autoresOptions");
+
+const categoriasSearch = document.getElementById("categoriasSearch");
+const autoresSearch = document.getElementById("autoresSearch");
+
 const toggleGenresBtn = document.getElementById("toggleGenresBtn");
+const toggleCategoriasBtn = document.getElementById("toggleCategoriasBtn");
+const toggleAutoresBtn = document.getElementById("toggleAutoresBtn");
 const toggleEstadoBtn = document.getElementById("toggleEstadoBtn");
 const toggleIdiomaBtn = document.getElementById("toggleIdiomaBtn");
+
 const genresSummary = document.getElementById("genresSummary");
+const categoriasSummary = document.getElementById("categoriasSummary");
+const autoresSummary = document.getElementById("autoresSummary");
 const estadoSummary = document.getElementById("estadoSummary");
 const idiomaSummary = document.getElementById("idiomaSummary");
 
@@ -57,20 +92,10 @@ function capitalizeWords(text){
     .join(" ");
 }
 
-function renderGenreOptions(){
-  if (!genrePanel) return;
-
-  genrePanel.innerHTML = GENEROS_DISPONIBLES.map(g => `
-    <label class="option-row">
-      <input type="checkbox" name="genre" value="${g}">
-      <span class="check-ui"></span>
-      <span>${capitalizeWords(g)}</span>
-    </label>
-  `).join("");
-}
-
 function closeAllPanels(){
   genrePanel?.classList.remove("is-open");
+  categoriasPanel?.classList.remove("is-open");
+  autoresPanel?.classList.remove("is-open");
   estadoPanel?.classList.remove("is-open");
   idiomaPanel?.classList.remove("is-open");
 }
@@ -87,6 +112,8 @@ function closeModal(){
   document.body.classList.remove("no-scroll");
   closeAllPanels();
   if (genrePanel) genrePanel.scrollTop = 0;
+  if (categoriasPanel) categoriasPanel.scrollTop = 0;
+  if (autoresPanel) autoresPanel.scrollTop = 0;
 }
 
 function closeModalInstant(){
@@ -95,12 +122,76 @@ function closeModalInstant(){
   document.body.classList.remove("no-scroll");
   closeAllPanels();
   if (genrePanel) genrePanel.scrollTop = 0;
+  if (categoriasPanel) categoriasPanel.scrollTop = 0;
+  if (autoresPanel) autoresPanel.scrollTop = 0;
+}
+
+function renderGenreOptions(){
+  if (!genrePanel) return;
+
+  genrePanel.innerHTML = GENEROS_DISPONIBLES.map(g => `
+    <label class="option-row">
+      <input type="checkbox" name="genre" value="${g}">
+      <span class="check-ui"></span>
+      <span>${capitalizeWords(g)}</span>
+    </label>
+  `).join("");
+}
+
+function renderCategoriasOptions(filterText = ""){
+  if (!categoriasOptions) return;
+
+  const needle = filterText.trim().toLowerCase();
+  const filtradas = CATEGORIAS_DISPONIBLES.filter(c =>
+    c.toLowerCase().includes(needle)
+  );
+
+  categoriasOptions.innerHTML = filtradas.map(c => `
+    <label class="option-row">
+      <input type="checkbox" name="categoria" value="${c}" ${categoriasSeleccionadasActuales.includes(c) ? "checked" : ""}>
+      <span class="check-ui"></span>
+      <span>${capitalizeWords(c)}</span>
+    </label>
+  `).join("");
+}
+
+function renderAutoresOptions(filterText = ""){
+  if (!autoresOptions) return;
+
+  const needle = filterText.trim().toLowerCase();
+  const filtrados = AUTORES_DISPONIBLES.filter(a =>
+    a.toLowerCase().includes(needle)
+  );
+
+  autoresOptions.innerHTML = filtrados.map(a => `
+    <label class="option-row">
+      <input type="checkbox" name="autor" value="${a}" ${autoresSeleccionadosActuales.includes(a) ? "checked" : ""}>
+      <span class="check-ui"></span>
+      <span>${capitalizeWords(a)}</span>
+    </label>
+  `).join("");
 }
 
 function updateSummaries(){
   const selectedGenres = [...document.querySelectorAll('input[name="genre"]:checked')].map(i => i.value);
   if (genresSummary) {
-    genresSummary.textContent = selectedGenres.length ? `${selectedGenres.length} seleccionados` : "Seleccionar";
+    genresSummary.textContent = selectedGenres.length
+      ? `${selectedGenres.length} seleccionados`
+      : "Seleccionar";
+  }
+
+  const selectedCategorias = categoriasSeleccionadasActuales;
+  if (categoriasSummary) {
+    categoriasSummary.textContent = selectedCategorias.length
+      ? `${selectedCategorias.length} ${selectedCategorias.length === 1 ? "seleccionada" : "seleccionadas"}`
+      : "Seleccionar";
+  }
+
+  const selectedAutores = autoresSeleccionadosActuales;
+  if (autoresSummary) {
+    autoresSummary.textContent = selectedAutores.length
+      ? `${selectedAutores.length} ${selectedAutores.length === 1 ? "seleccionado" : "seleccionados"}`
+      : "Seleccionar";
   }
 
   const estadoRadio = document.querySelector('input[name="estado"]:checked');
@@ -142,11 +233,30 @@ function marcarFiltrosActuales(){
 
   updateSummaries();
 }
+function restaurarFormularioDesdeURL() {
+  categoriasSeleccionadasActuales = [...categorias];
+  autoresSeleccionadosActuales = [...autores];
+
+  if (categoriasSearch) categoriasSearch.value = "";
+  if (autoresSearch) autoresSearch.value = "";
+
+  renderCategoriasOptions();
+  renderAutoresOptions();
+  marcarFiltrosActuales();
+  closeAllPanels();
+
+  if (genrePanel) genrePanel.scrollTop = 0;
+  if (categoriasPanel) categoriasPanel.scrollTop = 0;
+  if (autoresPanel) autoresPanel.scrollTop = 0;
+}
 
 function resetearFormularioVisual() {
   document.querySelectorAll('input[name="genre"]').forEach(input => {
     input.checked = false;
   });
+
+  categoriasSeleccionadasActuales = [];
+  autoresSeleccionadosActuales = [];
 
   document.querySelectorAll('input[name="estado"]').forEach(input => {
     input.checked = input.value === "";
@@ -159,9 +269,17 @@ function resetearFormularioVisual() {
   const sinCensuraInput = document.getElementById("sinCensuraCheck");
   if (sinCensuraInput) sinCensuraInput.checked = false;
 
+  if (categoriasSearch) categoriasSearch.value = "";
+  if (autoresSearch) autoresSearch.value = "";
+
+  renderCategoriasOptions();
+  renderAutoresOptions();
+
   closeAllPanels();
 
   if (genrePanel) genrePanel.scrollTop = 0;
+  if (categoriasPanel) categoriasPanel.scrollTop = 0;
+  if (autoresPanel) autoresPanel.scrollTop = 0;
 
   updateSummaries();
 }
@@ -179,6 +297,8 @@ function irConParams(nuevosParams) {
 function updateFilterCount(){
   let total = 0;
   total += genres.length;
+  total += categorias.length;
+  total += autores.length;
   if (estado) total += 1;
   if (idioma) total += 1;
   if (sinCensura === "1") total += 1;
@@ -207,7 +327,7 @@ window.addEventListener("pageshow", function (e) {
 
   if (isBackForward) {
     closeModalInstant();
-    resetearFormularioVisual();
+    restaurarFormularioDesdeURL();
   }
 });
 
@@ -220,6 +340,32 @@ toggleGenresBtn?.addEventListener("click", function(){
   if (willOpen) {
     genrePanel.classList.add("is-open");
     genrePanel.scrollTop = 0;
+  }
+});
+
+toggleCategoriasBtn?.addEventListener("click", function(){
+  if (!categoriasPanel) return;
+
+  const willOpen = !categoriasPanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) {
+    categoriasPanel.classList.add("is-open");
+    categoriasPanel.scrollTop = 0;
+    categoriasSearch?.focus();
+  }
+});
+
+toggleAutoresBtn?.addEventListener("click", function(){
+  if (!autoresPanel) return;
+
+  const willOpen = !autoresPanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) {
+    autoresPanel.classList.add("is-open");
+    autoresPanel.scrollTop = 0;
+    autoresSearch?.focus();
   }
 });
 
@@ -241,6 +387,14 @@ toggleIdiomaBtn?.addEventListener("click", function(){
   if (willOpen) idiomaPanel.classList.add("is-open");
 });
 
+categoriasSearch?.addEventListener("input", function(){
+  renderCategoriasOptions(this.value);
+});
+
+autoresSearch?.addEventListener("input", function(){
+  renderAutoresOptions(this.value);
+});
+
 document.addEventListener("click", function(e){
   const link = e.target.closest("a");
   if (link) {
@@ -256,6 +410,14 @@ document.addEventListener("click", function(e){
     genrePanel.scrollTop = 0;
   }
 
+  if (toggleCategoriasBtn && categoriasPanel && !toggleCategoriasBtn.contains(e.target) && !categoriasPanel.contains(e.target)) {
+    categoriasPanel.classList.remove("is-open");
+  }
+
+  if (toggleAutoresBtn && autoresPanel && !toggleAutoresBtn.contains(e.target) && !autoresPanel.contains(e.target)) {
+    autoresPanel.classList.remove("is-open");
+  }
+
   if (toggleEstadoBtn && estadoPanel && !toggleEstadoBtn.contains(e.target) && !estadoPanel.contains(e.target)) {
     estadoPanel.classList.remove("is-open");
   }
@@ -266,6 +428,36 @@ document.addEventListener("click", function(e){
 });
 
 document.addEventListener("change", function(e){
+  if (e.target.matches('input[name="categoria"]')) {
+    const value = e.target.value;
+
+    if (e.target.checked) {
+      if (!categoriasSeleccionadasActuales.includes(value)) {
+        categoriasSeleccionadasActuales.push(value);
+      }
+    } else {
+      categoriasSeleccionadasActuales = categoriasSeleccionadasActuales.filter(v => v !== value);
+    }
+
+    updateSummaries();
+    return;
+  }
+
+  if (e.target.matches('input[name="autor"]')) {
+    const value = e.target.value;
+
+    if (e.target.checked) {
+      if (!autoresSeleccionadosActuales.includes(value)) {
+        autoresSeleccionadosActuales.push(value);
+      }
+    } else {
+      autoresSeleccionadosActuales = autoresSeleccionadosActuales.filter(v => v !== value);
+    }
+
+    updateSummaries();
+    return;
+  }
+
   if (
     e.target.matches('input[name="genre"]') ||
     e.target.matches('input[name="estado"]') ||
@@ -278,19 +470,21 @@ document.addEventListener("change", function(e){
 resetFiltrosBtn?.addEventListener("click", function () {
   resetearFormularioVisual();
 
-const nuevosParams = new URLSearchParams();
-
+  const nuevosParams = new URLSearchParams();
   irConParams(nuevosParams);
 });
 
 filterForm?.addEventListener("submit", function(e){
   e.preventDefault();
 
-const nuevosParams = new URLSearchParams();
+  const nuevosParams = new URLSearchParams();
 
   const generosSeleccionados = [...document.querySelectorAll('input[name="genre"]:checked')]
     .map(input => input.value);
   generosSeleccionados.forEach(g => nuevosParams.append("genre", g));
+
+  categoriasSeleccionadasActuales.forEach(c => nuevosParams.append("categoria", c));
+  autoresSeleccionadosActuales.forEach(a => nuevosParams.append("autor", a));
 
   const estadoSeleccionado = document.querySelector('input[name="estado"]:checked')?.value || "";
   const idiomaSeleccionado = document.querySelector('input[name="idioma"]:checked')?.value || "";
@@ -313,8 +507,9 @@ if (search.trim()) {
 function buildQuery(pageNum){
   const params = new URLSearchParams();
 
-  if (search.trim()) params.set("search", search);
   genres.forEach(g => params.append("genre", g));
+  categorias.forEach(c => params.append("categoria", c));
+  autores.forEach(a => params.append("autor", a));
   if (estado) params.set("estado", estado);
   if (idioma) params.set("idioma", idioma);
   if (sinCensura === "1") params.set("sin_censura", "1");
@@ -340,6 +535,22 @@ function filtrarCatalogo(data){
       if (!item.genero) return false;
       const itemGenres = item.genero.toLowerCase().split(",").map(g => g.trim());
       return genres.every(g => itemGenres.includes(g.toLowerCase()));
+    });
+  }
+
+  if (categorias.length > 0){
+    filtrados = filtrados.filter(item => {
+      if (!item.categoria) return false;
+      const itemCategorias = item.categoria.toLowerCase().split(",").map(c => c.trim());
+      return categorias.every(c => itemCategorias.includes(c.toLowerCase()));
+    });
+  }
+
+  if (autores.length > 0){
+    filtrados = filtrados.filter(item => {
+      if (!item.autor) return false;
+      const itemAutores = item.autor.toLowerCase().split(",").map(a => a.trim());
+      return autores.every(a => itemAutores.includes(a.toLowerCase()));
     });
   }
 
@@ -437,6 +648,8 @@ async function loadData(){
 
 async function init(){
   renderGenreOptions();
+  renderCategoriasOptions();
+  renderAutoresOptions();
   marcarFiltrosActuales();
   updateFilterCount();
 
@@ -456,3 +669,154 @@ async function init(){
 }
 
 init();
+
+function blindarInputBuscador(inputEl, uniqueName) {
+  if (!inputEl) return;
+
+  // Que no parezca campo de login / datos sensibles
+  inputEl.type = "search";
+  inputEl.name = uniqueName;
+  inputEl.id = inputEl.id; // mantiene tu id actual
+  inputEl.setAttribute("autocomplete", "new-password");
+  inputEl.setAttribute("autocorrect", "off");
+  inputEl.setAttribute("autocapitalize", "off");
+  inputEl.setAttribute("spellcheck", "false");
+  inputEl.setAttribute("inputmode", "search");
+  inputEl.setAttribute("enterkeyhint", "search");
+
+  // Truco anti-autofill
+  inputEl.setAttribute("readonly", "readonly");
+
+  const quitarReadonly = () => {
+    inputEl.removeAttribute("readonly");
+  };
+
+  const ponerReadonly = () => {
+    // cuando se cierra teclado / pierdes foco
+    inputEl.setAttribute("readonly", "readonly");
+  };
+
+  inputEl.addEventListener("focus", () => {
+    quitarReadonly();
+    acomodarInputSobreTeclado(inputEl);
+  });
+
+  inputEl.addEventListener("click", () => {
+    quitarReadonly();
+    acomodarInputSobreTeclado(inputEl);
+  });
+
+  inputEl.addEventListener("touchstart", () => {
+    quitarReadonly();
+  }, { passive: true });
+
+  inputEl.addEventListener("blur", () => {
+    ponerReadonly();
+  });
+}
+
+function acomodarInputSobreTeclado(inputEl) {
+  if (!inputEl) return;
+
+  setTimeout(() => {
+    inputEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }, 180);
+}
+
+// Aplicarlo a los dos inputs
+blindarInputBuscador(categoriasSearch, "catalogo_categoria_search");
+blindarInputBuscador(autoresSearch, "catalogo_autor_search");
+
+// Reacomodar si cambia el viewport al abrir/cerrar teclado
+if (window.visualViewport) {
+  const reacomodarSiActivo = () => {
+    const active = document.activeElement;
+    if (active === categoriasSearch || active === autoresSearch) {
+      acomodarInputSobreTeclado(active);
+    }
+  };
+
+  window.visualViewport.addEventListener("resize", reacomodarSiActivo);
+  window.visualViewport.addEventListener("scroll", reacomodarSiActivo);
+}
+
+function bloquearEnter(inputEl) {
+  if (!inputEl) return;
+
+  inputEl.addEventListener("keydown", function(e){
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  });
+}
+
+// Aplicar
+bloquearEnter(categoriasSearch);
+bloquearEnter(autoresSearch);
+
+function mejorarClearInput(inputEl) {
+  if (!inputEl) return;
+
+  // Oculta la X nativa (Chrome/Safari)
+  const style = document.createElement("style");
+  style.textContent = `
+    input[type="search"]::-webkit-search-cancel-button {
+      display: none;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Crear botón X custom
+  const wrapper = document.createElement("div");
+  wrapper.style.position = "relative";
+  inputEl.parentNode.insertBefore(wrapper, inputEl);
+  wrapper.appendChild(inputEl);
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.innerHTML = "✕";
+
+  Object.assign(btn.style, {
+    position: "absolute",
+    right: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    border: "none",
+    background: "transparent",
+    color: "#bbb",
+    fontSize: "14px",
+    cursor: "pointer",
+    display: "none"
+  });
+
+  wrapper.appendChild(btn);
+
+  // Mostrar/ocultar
+  inputEl.addEventListener("input", () => {
+    btn.style.display = inputEl.value ? "block" : "none";
+  });
+
+  // Limpiar
+  btn.addEventListener("click", () => {
+    inputEl.value = "";
+    inputEl.dispatchEvent(new Event("input"));
+    inputEl.focus();
+  });
+}
+
+// Aplicar
+mejorarClearInput(categoriasSearch);
+mejorarClearInput(autoresSearch);
+
+btn.style.color = "#a78bfa";
+btn.style.transition = "0.2s";
+
+btn.addEventListener("mouseenter", () => {
+  btn.style.color = "#fff";
+});
+btn.addEventListener("mouseleave", () => {
+  btn.style.color = "#a78bfa";
+});

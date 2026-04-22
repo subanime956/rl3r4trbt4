@@ -1,4 +1,52 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+
+html,
+body {
+  background: #1f2937 !important;
+  color: #fff;
+}
+
+body *:not(.fa):not(.fa *):not(.rtr-password-box span) {
+  font-family: "Inter" !important;
+}
+
+body,
+.image-viewer,
+.image-viewer * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.image-viewer {
+  width: 100%;
+  max-width: 650px;
+  margin: 15px auto 0px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0;
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: max-width 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.image-viewer.reader-wide {
+  max-width: 1100px;
+}overflow: hidden;
+
+.image-viewer.reader-wide .image-container {
+  background: #000;
+}
 
 .header-dj,
 .footer {

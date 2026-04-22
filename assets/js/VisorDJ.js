@@ -27,13 +27,14 @@ const images = pageNodes
   .map((img) => img.dataset.src || img.getAttribute("src"))
   .filter(Boolean);
 
-/* =========================
-   CACHE + COLA + PRIORIDAD
-========================= */
 const imageCache = new Map();
 const loadingPromises = new Map();
 let renderToken = 0;
-const PRELOAD_AHEAD = 5;
+
+/* precarga continua */
+const PRELOAD_BATCH_SIZE = 5;
+let backgroundPreloadIndex = 0;
+let isBackgroundPreloading = false;
 
 function updateInputMax() {
   pageInputElement.max = images.length || 1;
@@ -85,7 +86,7 @@ function loadImage(index) {
 
     img.onerror = () => {
       loadingPromises.delete(index);
-      reject(new Error(`No se pudo cargar la imagen ${index + 1}`));
+      reject(new Error(`Error cargando imagen ${index + 1}`));
     };
 
     img.src = images[index];
@@ -95,25 +96,42 @@ function loadImage(index) {
   return promise;
 }
 
-function getPreloadOrder(center) {
-  const order = [];
+async function preloadBatch(startIndex, batchSize = PRELOAD_BATCH_SIZE) {
+  const tasks = [];
 
-  for (let i = 1; i <= PRELOAD_AHEAD; i++) {
-    if (isIndexValid(center + i)) order.push(center + i);
+  for (let i = startIndex; i < startIndex + batchSize && i < images.length; i++) {
+    if (!imageCache.has(i) && !loadingPromises.has(i)) {
+      tasks.push(loadImage(i).catch(() => null));
+    }
   }
 
-  for (let i = 1; i <= 2; i++) {
-    if (isIndexValid(center - i)) order.push(center - i);
-  }
-
-  return order;
+  await Promise.all(tasks);
 }
 
-function preloadAround(index) {
-  const order = getPreloadOrder(index);
+async function startContinuousPreload() {
+  if (isBackgroundPreloading) return;
+  isBackgroundPreloading = true;
 
-  order.forEach((targetIndex) => {
-    loadImage(targetIndex).catch(() => {});
+  while (backgroundPreloadIndex < images.length) {
+    await preloadBatch(backgroundPreloadIndex, PRELOAD_BATCH_SIZE);
+    backgroundPreloadIndex += PRELOAD_BATCH_SIZE;
+
+    await new Promise((resolve) => setTimeout(resolve, 80));
+  }
+
+  isBackgroundPreloading = false;
+}
+
+function preloadNearCurrent(index) {
+  const near = [];
+
+  for (let i = 1; i <= 5; i++) {
+    const next = index + i;
+    if (isIndexValid(next)) near.push(next);
+  }
+
+  near.forEach((i) => {
+    loadImage(i).catch(() => {});
   });
 }
 
@@ -128,13 +146,11 @@ async function renderPage(index) {
   pageInputElement.value = currentPage + 1;
   updateInputMax();
 
-  const cached = imageCache.get(index);
-
-  if (cached) {
-    imgElement.src = cached.src;
+  if (imageCache.has(index)) {
+    imgElement.src = imageCache.get(index).src;
     imgElement.alt = `Página ${currentPage + 1}`;
     setLoadingState(false);
-    preloadAround(index);
+    preloadNearCurrent(index);
     return;
   }
 
@@ -148,8 +164,8 @@ async function renderPage(index) {
     imgElement.src = loaded.src;
     imgElement.alt = `Página ${currentPage + 1}`;
     setLoadingState(false);
-    preloadAround(index);
-  } catch (error) {
+    preloadNearCurrent(index);
+  } catch (_) {
     if (myToken !== renderToken) return;
     loadingPlaceholder.style.display = "flex";
     loadingPlaceholder.classList.remove("is-hidden");
@@ -207,7 +223,7 @@ function scrollViewerBy(amount) {
 document.addEventListener("DOMContentLoaded", () => {
   updateInputMax();
   renderPage(0);
-  preloadAround(0);
+  startContinuousPreload();
 });
 
 if (openInstructionsBtn) {
@@ -295,7 +311,6 @@ lastButton.addEventListener("click", () => {
   goToPage(images.length - 1);
 });
 
-/* SIGUEN FUNCIONANDO SI HACES CLICK RAPIDÍSIMO */
 if (leftZone) {
   leftZone.addEventListener("click", () => {
     goToPage(currentPage - 1);

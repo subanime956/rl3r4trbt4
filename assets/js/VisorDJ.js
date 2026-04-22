@@ -29,14 +29,16 @@ const images = pageNodes
 
 const imageCache = new Map();
 const loadingPromises = new Map();
+
 let renderToken = 0;
 
-/* precarga continua */
+/* ===== PRECARGA CONTINUA EN BLOQUES ===== */
 const PRELOAD_BATCH_SIZE = 5;
 let backgroundPreloadIndex = 0;
 let isBackgroundPreloading = false;
 
 function updateInputMax() {
+  if (!pageInputElement) return;
   pageInputElement.max = images.length || 1;
 }
 
@@ -44,21 +46,14 @@ function isIndexValid(index) {
   return index >= 0 && index < images.length;
 }
 
-function setLoadingState(isLoading) {
-  if (isLoading) {
-    loadingPlaceholder.style.display = "flex";
-    loadingPlaceholder.classList.remove("is-hidden");
-    imgElement.classList.remove("is-visible");
-  } else {
-    imgElement.classList.add("is-visible");
-    loadingPlaceholder.classList.add("is-hidden");
+function showLoading() {
+  if (!loadingPlaceholder) return;
+  loadingPlaceholder.style.display = "flex";
+}
 
-    setTimeout(() => {
-      if (imgElement.classList.contains("is-visible")) {
-        loadingPlaceholder.style.display = "none";
-      }
-    }, 180);
-  }
+function hideLoading() {
+  if (!loadingPlaceholder) return;
+  loadingPlaceholder.style.display = "none";
 }
 
 function loadImage(index) {
@@ -130,6 +125,11 @@ function preloadNearCurrent(index) {
     if (isIndexValid(next)) near.push(next);
   }
 
+  for (let i = 1; i <= 2; i++) {
+    const prev = index - i;
+    if (isIndexValid(prev)) near.push(prev);
+  }
+
   near.forEach((i) => {
     loadImage(i).catch(() => {});
   });
@@ -142,19 +142,26 @@ async function renderPage(index) {
   renderToken += 1;
   const myToken = renderToken;
 
-  pageInfoElement.textContent = `${currentPage + 1} de ${images.length}`;
-  pageInputElement.value = currentPage + 1;
+  if (pageInfoElement) {
+    pageInfoElement.textContent = `${currentPage + 1} de ${images.length}`;
+  }
+
+  if (pageInputElement) {
+    pageInputElement.value = currentPage + 1;
+  }
+
   updateInputMax();
 
   if (imageCache.has(index)) {
     imgElement.src = imageCache.get(index).src;
     imgElement.alt = `Página ${currentPage + 1}`;
-    setLoadingState(false);
+    hideLoading();
     preloadNearCurrent(index);
     return;
   }
 
-  setLoadingState(true);
+  showLoading();
+  imgElement.alt = `Página ${currentPage + 1}`;
 
   try {
     const loaded = await loadImage(index);
@@ -162,13 +169,11 @@ async function renderPage(index) {
     if (myToken !== renderToken) return;
 
     imgElement.src = loaded.src;
-    imgElement.alt = `Página ${currentPage + 1}`;
-    setLoadingState(false);
+    hideLoading();
     preloadNearCurrent(index);
   } catch (_) {
     if (myToken !== renderToken) return;
-    loadingPlaceholder.style.display = "flex";
-    loadingPlaceholder.classList.remove("is-hidden");
+    showLoading();
   }
 }
 
@@ -207,7 +212,7 @@ function showMobileFullscreenToast() {
 }
 
 function scrollViewerBy(amount) {
-  if (document.fullscreenElement) {
+  if (document.fullscreenElement && imageContainer) {
     imageContainer.scrollBy({
       top: amount,
       behavior: "smooth"
@@ -222,6 +227,15 @@ function scrollViewerBy(amount) {
 
 document.addEventListener("DOMContentLoaded", () => {
   updateInputMax();
+
+  if (!images.length) {
+    if (pageInfoElement) pageInfoElement.textContent = "0 de 0";
+    if (pageInputElement) pageInputElement.value = "";
+    if (imgElement) imgElement.removeAttribute("src");
+    hideLoading();
+    return;
+  }
+
   renderPage(0);
   startContinuousPreload();
 });
@@ -245,7 +259,11 @@ document.addEventListener("keydown", (event) => {
     tag === "TEXTAREA" ||
     event.target.isContentEditable;
 
-  if (event.key === "Escape" && instructionsModal && instructionsModal.classList.contains("is-open")) {
+  if (
+    event.key === "Escape" &&
+    instructionsModal &&
+    instructionsModal.classList.contains("is-open")
+  ) {
     closeInstructionsModal();
     return;
   }
@@ -290,26 +308,34 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("fullscreenchange", () => {
-  if (!document.fullscreenElement) {
+  if (!document.fullscreenElement && viewer) {
     viewer.classList.remove("fs-zoom");
   }
 });
 
-nextButton.addEventListener("click", () => {
-  goToPage(currentPage + 1);
-});
+if (nextButton) {
+  nextButton.addEventListener("click", () => {
+    goToPage(currentPage + 1);
+  });
+}
 
-prevButton.addEventListener("click", () => {
-  goToPage(currentPage - 1);
-});
+if (prevButton) {
+  prevButton.addEventListener("click", () => {
+    goToPage(currentPage - 1);
+  });
+}
 
-firstButton.addEventListener("click", () => {
-  goToPage(0);
-});
+if (firstButton) {
+  firstButton.addEventListener("click", () => {
+    goToPage(0);
+  });
+}
 
-lastButton.addEventListener("click", () => {
-  goToPage(images.length - 1);
-});
+if (lastButton) {
+  lastButton.addEventListener("click", () => {
+    goToPage(images.length - 1);
+  });
+}
 
 if (leftZone) {
   leftZone.addEventListener("click", () => {
@@ -323,32 +349,36 @@ if (rightZone) {
   });
 }
 
-pageInputElement.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    const newPage = parseInt(pageInputElement.value, 10) - 1;
+if (pageInputElement) {
+  pageInputElement.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const newPage = parseInt(pageInputElement.value, 10) - 1;
 
-    if (!Number.isNaN(newPage) && isIndexValid(newPage)) {
-      goToPage(newPage);
-    } else {
-      pageInputElement.value = images.length ? currentPage + 1 : "";
+      if (!Number.isNaN(newPage) && isIndexValid(newPage)) {
+        goToPage(newPage);
+      } else {
+        pageInputElement.value = images.length ? currentPage + 1 : "";
+      }
     }
-  }
-});
+  });
+}
 
-fullscreenBtn.addEventListener("click", () => {
-  if (isMobileView()) {
-    showMobileFullscreenToast();
-    return;
-  }
+if (fullscreenBtn) {
+  fullscreenBtn.addEventListener("click", () => {
+    if (isMobileView()) {
+      showMobileFullscreenToast();
+      return;
+    }
 
-  if (!document.fullscreenElement) {
-    viewer.requestFullscreen().catch((err) => {
-      console.log("Error al activar pantalla completa:", err);
-    });
-  } else {
-    document.exitFullscreen();
-  }
-});
+    if (!document.fullscreenElement) {
+      viewer.requestFullscreen().catch((err) => {
+        console.log("Error al activar pantalla completa:", err);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  });
+}
 
 
 

@@ -117,7 +117,6 @@ body,
   margin: 0;
   overflow: hidden;
   background: #f0f0f0;
-  min-height: 420px;
 }
 
 #comic-image {
@@ -140,16 +139,15 @@ body,
   background: #f0f0f0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   color: #888;
   font-size: 16px;
-  padding: 10px;
+  padding: 14px 12px;
   overflow: hidden;
   text-align: center;
   z-index: 1;
   pointer-events: none;
 }
-
 .loading-placeholder p {
   margin: 0;
   overflow: hidden;

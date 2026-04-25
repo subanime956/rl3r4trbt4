@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="/assets/js/Onesignalpush.js" defer></script>
+  
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://rule.animertr.com/favicon.ico" type="image/x-icon">
+      
+<meta property="og:type" content="website">
+<meta content='Mi Biblioteca' property='og:title'/>
+<meta content='https://rule.animertr.com/biblioteca' property='og:url'/>
+<meta content='article' property='og:type'/>
+<meta content='RuleRTR' property='og:site_name'/>
+<meta content='Tu biblioteca para agregar favoritos, pendientes y mucho más.' property='og:description'/>
+<meta content='https://rule.animertr.com/RuleRTR-Portada.webp' property='og:image'/>
+<meta content='es_ES' property='og:locale'/>
+<meta content='en_US' property='og:locale:alternate'/>
+<meta content='en_GB' property='og:locale:alternate'/>
+<meta content='RuleRTR' name='twitter:title'/>
+<meta content='USARIO-TWITTER' name='twitter:site'/>
+<meta content='USARIO-TWITTER' name='twitter:creator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+
+  
+<!-- CSS Style Configuracion -->
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/catalogo/style.css">
+  <link rel="stylesheet" href="/assets/css/copiar.css">
+  <link rel="stylesheet" href="/assets/css/biblioteca-ui.css">
+  
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title> Biblioteca </title>
+
+</head>
+  <body>
+<header class="header">
+  <div class="header-container">
+    
+<!-- LOGO IZQUIERDA -->
+<div class="logo">
+  <a href="/">
+    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+  </a>
+</div>
+
+  <!-- DERECHA -->
+  <div class="actions">
+  <!-- 🔔 CAMPANA -->
+  <button class="icon-btn" id="notifToggle">
+    <i class="fa fa-bell-slash" id="bellIcon"></i>
+  </button>
+  <!-- 🔍 BUSCADOR -->
+  <button class="icon-btn" onclick="abrirBusqueda()">
+    <i class="fa fa-search"></i>
+  </button>
+  <!-- ☰ MENU -->
+  <button class="icon-btn" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </button>
+  </div>
+
+<div id="searchBar">
+ <div class="search-container">
+
+  <div class="search-input-wrap">
+    <i class="fa fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+  </div>
+  <!-- BOTÓN FILTROS -->
+  <a href="/catalogo/" class="filter-btn">
+    <i class="fa fa-sliders"></i>
+    <span>Filtros</span>
+  </a>
+  <!-- TU BOTÓN X -->
+  <button onclick="cerrarBusqueda()">
+    <i class="fa fa-times"></i>
+  </button>
+
+</div>
+</div>
+
+<!-- WARNING -->
+<div id="notifWarning">
+  <span class="close" id="closeWarning">✖</span>
+  <p style="margin:5px 0;">🔕 Notificaciones bloqueadas</p>
+  <a href="https://media.onesignal.com/web-sdk/bell/edge-unblock.png" target="_blank">
+    <img src="https://media.onesignal.com/web-sdk/bell/edge-unblock.png">
+  </a>
+</div>
+
+<!-- TOAST -->
+<div id="notifToast">
+  <span class="close" id="closeToast">✖</span>
+  <p id="toastText" style="margin:5px 0;"></p>
+</div>
+        
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- MENÚ -->
+<div id="menu">
+  <div class="menu-links">
+    <a href="/"><i class="fa fa-home"></i>Inicio</a>
+    <a href="/assets/link/Anime"><i class="fa fa-play-circle"></i>Anime</a>
+    <a href="/assets/link/Hentai"><i class="fa fa-heart"></i>Hentai</a>
+    <a href="/assets/link/Doujins"><i class="fa fa-book"></i>Doujins</a>
+    <a href="/assets/link/Rule34"><i class="fa fa-fire"></i>Rule34</a>
+    <a href="/assets/link/ErogeGames"><i class="fa fa-gamepad"></i>Eroge Games</a>
+    <a href="/assets/link/DMCA"><i class="fa fa-ban"></i>DMCA</a>
+    <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
+    <a href="/assets/link/Donar"><i class="fa fa-paypal"></i>Donar</a>
+    <a href="/assets/link/Donar"><i class="fa fa-gift"></i>Membresias</a>
+  </div>
+
+  <div class="menu-social">
+    <a href="/assets/link/Twitter" title="X/Twitter"><i class="fa fa-twitter"></i></a>
+    <a href="/assets/link/WhatsApp" title="WhatsApp"><i class="fa fa-whatsapp"></i></a>
+    <a href="/assets/link/Facebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+    <a href="/assets/link/YouTube" title="YouTube"><i class="fa fa-youtube-play"></i></a>
+    <a href="/assets/link/Donar" title="Donar"><i class="fa fa-paypal"></i></a>
+  </div>
+</div>
+ 
+</header>
+   
+
+<!-- JS Script Configuracion -->
+  <script src="/assets/js/header.js"></script>
+  <script src="/assets/js/zoom.js" defer></script>
+  <script src="assets/js/biblioteca-core.js" defer></script>
+  <script src="assets/js/biblioteca-page.js" defer></script>
+
+
+
+
+
+
+    
+
+      
+<!-- AQUI COMIENZA EL HTML NORMAL CON JS NORMAL -->
+  <div class="page">
+    <div class="catalog-header-wrap">
+      <div class="catalog-header-top">
+        <div class="catalog-header-left">
+          <div class="biblio-topbar">
+            <div class="biblio-title-wrap">
+              <h1 class="catalog-title" id="biblioTitle">Favoritos de Usuario</h1>
+              <span class="biblio-subtitle" id="biblioSubtitle"><i class="fa fa-bookmark"></i> Biblioteca local de guardados</span>
+            </div>
+          </div>
+
+          <div class="biblio-control-panel">
+            <div class="biblio-count-left"><strong id="resultadoCantidad">0</strong><span>Guardados</span></div>
+            <button class="biblio-btn biblio-view-button" id="biblioOpenList" type="button">
+              <span><i class="fa fa-list-ul"></i> <strong id="biblioCurrentListText">Favoritos</strong></span>
+              <i class="fa fa-angle-down"></i>
+            </button>
+            <button class="biblio-btn biblio-gear-btn" id="biblioOpenSettings" type="button" aria-label="Opciones">
+              <i class="fa fa-cog"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultados" class="container"></div>
+    <div id="paginacion"></div>
+  </div>
+
+  <div class="biblio-modal-backdrop" id="biblioModalBackdrop"></div>
+
+  <div class="biblio-modal" id="biblioModal" aria-hidden="true">
+    <div class="biblio-modal-box">
+      <div class="biblio-modal-head">
+        <div><h2>Elegir lista</h2><p>Cambia de sección sin mezclar tus guardados.</p></div>
+        <button class="biblio-close" type="button" data-biblio-close>×</button>
+      </div>
+      <div class="biblio-modal-body">
+        <div class="biblio-section-title">Mis listas</div>
+        <div class="biblio-list-options" id="biblioPersonalOptions"></div>
+        <div class="biblio-divider"></div>
+        <div class="biblio-section-title">Compartidos</div>
+        <div id="biblioSharedOptions"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="biblio-modal" id="biblioSettingsModal" aria-hidden="true">
+    <div class="biblio-modal-box biblio-settings-box">
+      <div class="biblio-modal-head">
+        <div><h2>Opciones</h2><p>Importa, exporta o administra tu biblioteca local.</p></div>
+        <button class="biblio-close" type="button" data-biblio-close>×</button>
+      </div>
+      <div class="biblio-modal-body">
+        <div class="biblio-settings-grid">
+          <button class="biblio-setting-option" id="biblioChangeName" type="button"><i class="fa fa-pencil"></i><span>Cambiar nombre</span></button>
+          <button class="biblio-setting-option" id="biblioOpenImport" type="button"><i class="fa fa-upload"></i><span>Importar</span></button>
+          <button class="biblio-setting-option" id="biblioOpenExport" type="button"><i class="fa fa-download"></i><span>Exportar</span></button>
+          <button class="biblio-setting-option is-danger" id="biblioClearAll" type="button"><i class="fa fa-trash"></i><span>Vaciar mi catálogo</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="biblio-modal" id="biblioNameModal" aria-hidden="true">
+    <div class="biblio-modal-box">
+      <div class="biblio-modal-head">
+        <div><h2>Tu nombre</h2><p>Se usará en el título y en archivos exportados.</p></div>
+        <button class="biblio-close" type="button" data-biblio-close>×</button>
+      </div>
+      <div class="biblio-modal-body">
+        <div class="biblio-form-row">
+          <label for="biblioNameInput">Nombre de usuario</label>
+          <input class="biblio-input" id="biblioNameInput" type="text" maxlength="30" placeholder="Ejemplo: Linda">
+        </div>
+        <button class="biblio-btn biblio-btn-primary" id="biblioSaveName" type="button"><i class="fa fa-check"></i> Guardar nombre</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="biblio-modal" id="biblioImportModal" aria-hidden="true">
+    <div class="biblio-modal-box">
+      <div class="biblio-modal-head">
+        <div><h2>Importar biblioteca</h2><p>Primero sube el archivo, luego eliges si es tuyo o compartido.</p></div>
+        <button class="biblio-close" type="button" data-biblio-close>×</button>
+      </div>
+      <div class="biblio-modal-body">
+        <label class="biblio-file">
+          <i class="fa fa-file-code-o"></i>
+          <span>Seleccionar archivo JSON</span>
+          <input id="biblioImportFile" type="file" accept="application/json,.json">
+        </label>
+        <div class="biblio-preview" id="biblioImportPreview"><span class="biblio-muted">Primero selecciona tu archivo .json.</span></div>
+        <div class="biblio-import-choices" id="biblioImportChoices">
+          <button class="biblio-btn biblio-btn-primary" id="biblioImportOwn" type="button"><i class="fa fa-user"></i> Es mía</button>
+          <button class="biblio-btn biblio-btn-soft" id="biblioImportShared" type="button"><i class="fa fa-users"></i> Es de otra persona</button>
+        </div>
+        <div class="biblio-conflict" id="biblioImportConflict">
+          <div class="biblio-conflict-text" id="biblioImportConflictText"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="biblio-modal" id="biblioExportModal" aria-hidden="true">
+    <div class="biblio-modal-box">
+      <div class="biblio-modal-head">
+        <div><h2>Exportar biblioteca</h2><p>Elige copia completa o prepara un archivo para amigos.</p></div>
+        <button class="biblio-close" type="button" data-biblio-close>×</button>
+      </div>
+      <div class="biblio-modal-body">
+        <div class="biblio-export-grid">
+          <div class="biblio-export-card">
+            <i class="fa fa-shield"></i>
+            <h3>Copia de seguridad</h3>
+            <p>Exporta todas tus listas para restaurarlas en otro dispositivo.</p>
+            <button class="biblio-btn biblio-btn-primary" id="biblioExportBackup" type="button"><i class="fa fa-download"></i> Descargar copia</button>
+          </div>
+          <div class="biblio-export-card">
+            <i class="fa fa-share-alt"></i>
+            <h3>Para amigos</h3>
+            <p>Primero elige esta opción y luego selecciona qué secciones compartir.</p>
+            <button class="biblio-btn biblio-btn-soft" id="biblioShowFriendExport" type="button"><i class="fa fa-sliders"></i> Elegir secciones</button>
+          </div>
+        </div>
+        <div class="biblio-friend-panel" id="biblioFriendPanel">
+          <div class="biblio-section-title">Secciones para amigos</div>
+          <div class="biblio-check-grid" id="biblioExportChecks"></div>
+          <div class="biblio-export-msg" id="biblioExportMsg"></div>
+          <button class="biblio-btn biblio-btn-primary biblio-full" id="biblioExportFriend" type="button"><i class="fa fa-download"></i> Descargar archivo para amigos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+</body>
+</html>

@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="/assets/css/header.css">
   <link rel="stylesheet" href="/assets/css/portada.css">
   <link rel="stylesheet" href="/assets/css/copiar.css">
+  <link rel="stylesheet" href="/assets/css/biblioteca-ui.css">
   
 
   <meta charset="UTF-8" />
@@ -111,6 +112,7 @@
 <div id="menu">
   <div class="menu-links">
     <a href="/"><i class="fa fa-home"></i>Inicio</a>
+    <a href="/biblioteca"><i class="fa fa-bookmark"></i>Mis Guardados</a>
     <a href="/assets/link/Anime"><i class="fa fa-play-circle"></i>Anime</a>
     <a href="/assets/link/Hentai"><i class="fa fa-heart"></i>Hentai</a>
     <a href="/assets/link/Doujins"><i class="fa fa-book"></i>Doujins</a>
@@ -138,6 +140,8 @@
   <script src="/assets/js/header.js"></script>
   <script src="/assets/js/zoom.js"></script>
   <script src="/assets/js/portada.js" defer></script>
+  <script src="/assets/js/biblioteca-core.js" defer></script>
+  <script src="/assets/js/portada-listas.js" defer></script>
 
 
 
@@ -152,7 +156,14 @@
   <div class="rtr-page">
 
     <!-- HERO -->
-    <section class="rtr-hero" style="--bg:url('https://rule.animertr.com/assets/img/Portada-FXSP1.png')">
+    <section class="rtr-hero"
+       style="--bg:url('https://rule.animertr.com/assets/img/Portada-FXSP1.png')"
+
+        data-id="fxsp1-20260425"
+        data-titulo="Fern x Stark Full Animation - Part 1"
+        data-imagen="https://rule.animertr.com/assets/img/FXSP1.webp"
+        data-url="/ver/FXSP1.html"
+        data-badge="R34">
 
       <div class="rtr-hero-inner">
 
@@ -222,6 +233,11 @@
         </svg>
         Cronología
       </a>
+      
+      <button class="rtr-btn biblio-save-btn" type="button">
+         <i class="fa fa-star"></i>&nbsp;Guardar
+      </button>
+    
     </div>
   </div>
 

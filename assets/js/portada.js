@@ -39,7 +39,7 @@
 
   if(!langWrap || !btn || !menu || !pill || !grid) return;
 
-  const labels = { raw:"Raw", sub:"Sub", latino:"Latino", raw_sub_en: "RAW + SUB-EN", sub_en: "SUB-EN", sub_es: "SUB-ES", lat_haf: "LAT-HAF" };
+  const labels = { raw:"Raw", sub:"Sub", latino:"Latino", raw_sub_en: "Raw (SUB-EN)", sub_en: "SUB-EN", sub_es: "SUB-ES", lat_haf: "Latino HAF" };
 
   function setOpen(v){
     langWrap.classList.toggle("open", v);

@@ -22,14 +22,14 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    padding: 10px;
+    padding: 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
     .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -310,7 +310,7 @@ body {
   font-size: 24px;       /* Tamaño similar a la imagen */
   color: #fff;
   font-weight: 700;       /* Negrita */
-  margin: 15px 0 5px 15px;   /* margen superior e inferior */
+  margin: 15px 0 5px 0;   /* margen superior e inferior */
 }
 
 .titulo-seccion p {
@@ -318,6 +318,6 @@ body {
   font-weight: 600;       /* Negrita */
   letter-spacing: 1px;    /* espaciado de letras */
   color: #A7ACD1;         /* color gris claro */
-  margin: 0 0 20px 15px;     /* margen inferior para separación */
+  margin: 0 0 20px 0;     /* margen inferior para separación */
   text-transform: uppercase; /* para que quede en mayúsculas */
 }

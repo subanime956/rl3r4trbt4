@@ -1,9 +1,17 @@
 [
   {
     "title": "Hae In x Jin Woo Full Animation - Part&nbsp;1",
-    "label": "Latino - AHF",
+    "label": "Subtitle English",
     "desc": "Rule del creador Maplestar",
-    "img": "https://rule.animertr.com/assets/img/HXJP1-1-Lat-HAF.png",
+    "img": "/assets/img/HXJP1-1.png",
+    "play": "/ver/raw-sub-eng-haf-hxjp1-1.html",
+    "info": "/media/hxjp1"
+  },
+  {
+    "title": "Hae In x Jin Woo Full Animation - Part&nbsp;1",
+    "label": "Doblaje Latino",
+    "desc": "Rule del creador Maplestar",
+    "img": "7assets/img/HXJP1-1-Lat-HAF.png",
     "play": "/ver/lat-haf-hxjp1-1",
     "info": "/media/hxjp1"
   },

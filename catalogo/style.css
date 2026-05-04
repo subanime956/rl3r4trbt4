@@ -240,7 +240,7 @@ body{
 .card img{
   display:block;
   width:100%;
-  aspect-ratio:162/244;
+
   object-fit:cover;
   border-radius:8px;
 }

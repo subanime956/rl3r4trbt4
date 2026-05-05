@@ -14,16 +14,16 @@
 <link rel="icon" href="https://rule.animertr.com/favicon.ico" type="image/x-icon">
       
 <meta property="og:type" content="website">
-<meta content='R34 Online | Rule.AnimeRTR.com' property='og:title'/>
-<meta content='https://rule.animertr.com' property='og:url'/>
+<meta content='Catalogo' property='og:title'/>
+<meta content='https://rule.animertr.com/catalogo' property='og:url'/>
 <meta content='article' property='og:type'/>
 <meta content='RuleRTR' property='og:site_name'/>
-<meta content='El catalogo de R34 más eficiente de toda latinoamerica sin anuncios Rule.AnimeRTR.com' property='og:description'/>
-<meta content='https://rule.animertr.com/RuleRTR-Portada.webp' property='og:image'/>
+<meta content='El catalogo de Rule más eficiente de toda latinoamerica sin anuncios' property='og:description'/>
+<meta content='' property='og:image'/>
 <meta content='es_ES' property='og:locale'/>
 <meta content='en_US' property='og:locale:alternate'/>
 <meta content='en_GB' property='og:locale:alternate'/>
-<meta content='RuleRTR' name='twitter:title'/>
+<meta content='Catalogo' name='twitter:title'/>
 <meta content='USARIO-TWITTER' name='twitter:site'/>
 <meta content='USARIO-TWITTER' name='twitter:creator'/>
 <meta content='summary_large_image' name='twitter:card'/>
@@ -48,7 +48,7 @@
 <!-- LOGO IZQUIERDA -->
 <div class="logo">
   <a href="/">
-    <img src="https://m.animertr.com/assets/img/AnimeRTR.webp">
+    <img src="/assets/img/logo.webp">
   </a>
 </div>
 
@@ -73,7 +73,7 @@
 
   <div class="search-input-wrap">
     <i class="fa fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Buscar anime..." />
+    <input type="text" id="searchInput" placeholder="Buscar doujin/codigo..." />
   </div>
   <!-- BOTÓN FILTROS -->
   <a href="/catalogo/" class="filter-btn">
@@ -120,6 +120,7 @@
     <a href="/assets/link/Contacto"><i class="fa fa-envelope"></i>Contacto</a>
     <a href="/assets/link/Donar"><i class="fa fa-paypal"></i>Donar</a>
     <a href="/assets/link/Donar"><i class="fa fa-gift"></i>Membresias</a>
+    <a href="/biblioteca"><i class="fa fa-bookmark"></i>Mis Guardados</a>
   </div>
 
   <div class="menu-social">
@@ -237,6 +238,24 @@
 
 <div class="filter-block">
   <div class="select-box">
+    <button type="button" class="select-display" id="togglePersonajesBtn">
+      <span class="label-soft">Personajes:</span>
+      <span class="value-strong" id="personajesSummary">Seleccionar</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+    </button>
+
+    <div class="select-panel" id="personajesPanel">
+      <div class="select-search-wrap">
+        <input type="text" id="personajesSearch" class="select-search" placeholder="Buscar personaje...">
+      </div>
+      <div id="personajesOptions"></div>
+    </div>
+  </div>
+</div>
+          
+<!--
+<div class="filter-block">
+  <div class="select-box">
     <button type="button" class="select-display" id="toggleEstadoBtn">
       <span class="label-soft">Estado:</span>
       <span class="value-strong" id="estadoSummary">Seleccionar</span>
@@ -261,7 +280,7 @@
       </label>
     </div>
   </div>
-</div>
+</div>-->
 
 <div class="filter-block">
   <div class="select-box">
@@ -286,7 +305,7 @@
         <input type="radio" name="idioma" value="latino">
         <span class="radio-ui"></span>
         <span>Latino</span>
-      </label>
+      </label> 
     </div>
   </div>
 </div>

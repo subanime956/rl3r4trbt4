@@ -1,26 +1,17 @@
 const GENEROS_DISPONIBLES = [
-  "acción","artes marciales","aventuras","carreras","ciencia ficción","comedia",
-  "demencia","demonios","deportes","drama","ecchi","escolares","espacial",
-  "fantasía","harem","historico","infantil","josei","juegos","magia","mecha",
-  "militar","misterio","música","parodia","policía","psicológico",
-  "recuentos de la vida","romance","samurai","seinen","shoujo","shounen",
-  "sobrenatural","superpoderes","suspenso","terror","vampiros","yaoi","yuri"
+  "Ahegao","Christmas","Cumshot","Creampie","Dominación","Milf","Chica Alta","Virgenes","B/N"
 ];
 
 const CATEGORIAS_DISPONIBLES = [
-  "genshin",
-  "date a live",
-  "honkai star rail"
+  "Gotoubun no Hanayome", "Original"
 ];
 
 const AUTORES_DISPONIBLES = [
-  "maplestar",
-  "raimbo",
-  "minus8","demonios","deportes","drama","ecchi","escolares","espacial",
-  "fantasía","harem","historico","infantil","josei","juegos","magia","mecha",
-  "militar","misterio","música","parodia","policía","psicológico",
-  "recuentos de la vida","romance","samurai","seinen","shoujo","shounen",
-  "sobrenatural","superpoderes","suspenso","terror","vampiros","yaoi","yuri"
+  "Kozuki", "Mogiki Hayami"
+];
+
+const PERSONAJES_DISPONIBLES = [
+  "Miku Nakano","Futaro Uesugi"
 ];        
 
 const params = new URLSearchParams(window.location.search);
@@ -28,6 +19,7 @@ const search = params.get("search") || "";
 const genres = params.getAll("genre");
 const categorias = params.getAll("categoria");
 const autores = params.getAll("autor");
+const personajes = params.getAll("personaje");
 const estado = params.get("estado") || "";
 const idioma = params.get("idioma") || "";
 const sinCensura = params.get("sin_censura") || "";
@@ -36,6 +28,7 @@ const porPagina = 20;
 
 let categoriasSeleccionadasActuales = [...categorias];
 let autoresSeleccionadosActuales = [...autores];
+let personajesSeleccionadosActuales = [...personajes];
 
 const resultados = document.getElementById("resultados");
 const paginacion = document.getElementById("paginacion");
@@ -54,24 +47,29 @@ const resetFiltrosBtn = document.getElementById("resetFiltros");
 const genrePanel = document.getElementById("genrePanel");
 const categoriasPanel = document.getElementById("categoriasPanel");
 const autoresPanel = document.getElementById("autoresPanel");
+const personajesPanel = document.getElementById("personajesPanel");
 const estadoPanel = document.getElementById("estadoPanel");
 const idiomaPanel = document.getElementById("idiomaPanel");
 
 const categoriasOptions = document.getElementById("categoriasOptions");
 const autoresOptions = document.getElementById("autoresOptions");
+const personajesOptions = document.getElementById("personajesOptions");
 
 const categoriasSearch = document.getElementById("categoriasSearch");
 const autoresSearch = document.getElementById("autoresSearch");
+const personajesSearch = document.getElementById("personajesSearch");
 
 const toggleGenresBtn = document.getElementById("toggleGenresBtn");
 const toggleCategoriasBtn = document.getElementById("toggleCategoriasBtn");
 const toggleAutoresBtn = document.getElementById("toggleAutoresBtn");
+const togglePersonajesBtn = document.getElementById("togglePersonajesBtn");
 const toggleEstadoBtn = document.getElementById("toggleEstadoBtn");
 const toggleIdiomaBtn = document.getElementById("toggleIdiomaBtn");
 
 const genresSummary = document.getElementById("genresSummary");
 const categoriasSummary = document.getElementById("categoriasSummary");
 const autoresSummary = document.getElementById("autoresSummary");
+const personajesSummary = document.getElementById("personajesSummary");
 const estadoSummary = document.getElementById("estadoSummary");
 const idiomaSummary = document.getElementById("idiomaSummary");
 
@@ -96,6 +94,7 @@ function closeAllPanels(){
   genrePanel?.classList.remove("is-open");
   categoriasPanel?.classList.remove("is-open");
   autoresPanel?.classList.remove("is-open");
+  personajesPanel?.classList.remove("is-open");
   estadoPanel?.classList.remove("is-open");
   idiomaPanel?.classList.remove("is-open");
 }
@@ -114,6 +113,7 @@ function closeModal(){
   if (genrePanel) genrePanel.scrollTop = 0;
   if (categoriasPanel) categoriasPanel.scrollTop = 0;
   if (autoresPanel) autoresPanel.scrollTop = 0;
+  if (personajesPanel) personajesPanel.scrollTop = 0;
 }
 
 function closeModalInstant(){
@@ -124,6 +124,7 @@ function closeModalInstant(){
   if (genrePanel) genrePanel.scrollTop = 0;
   if (categoriasPanel) categoriasPanel.scrollTop = 0;
   if (autoresPanel) autoresPanel.scrollTop = 0;
+  if (personajesPanel) personajesPanel.scrollTop = 0;
 }
 
 function renderGenreOptions(){
@@ -172,6 +173,23 @@ function renderAutoresOptions(filterText = ""){
   `).join("");
 }
 
+function renderPersonajesOptions(filterText = ""){
+  if (!personajesOptions) return;
+
+  const needle = filterText.trim().toLowerCase();
+  const filtrados = PERSONAJES_DISPONIBLES.filter(p =>
+    p.toLowerCase().includes(needle)
+  );
+
+  personajesOptions.innerHTML = filtrados.map(p => `
+    <label class="option-row">
+      <input type="checkbox" name="personaje" value="${p}" ${personajesSeleccionadosActuales.includes(p) ? "checked" : ""}>
+      <span class="check-ui"></span>
+      <span>${capitalizeWords(p)}</span>
+    </label>
+  `).join("");
+}
+
 function updateSummaries(){
   const selectedGenres = [...document.querySelectorAll('input[name="genre"]:checked')].map(i => i.value);
   if (genresSummary) {
@@ -191,6 +209,13 @@ function updateSummaries(){
   if (autoresSummary) {
     autoresSummary.textContent = selectedAutores.length
       ? `${selectedAutores.length} ${selectedAutores.length === 1 ? "seleccionado" : "seleccionados"}`
+      : "Seleccionar";
+  }
+
+  const selectedPersonajes = personajesSeleccionadosActuales;
+  if (personajesSummary) {
+    personajesSummary.textContent = selectedPersonajes.length
+      ? `${selectedPersonajes.length} ${selectedPersonajes.length === 1 ? "seleccionado" : "seleccionados"}`
       : "Seleccionar";
   }
 
@@ -236,18 +261,22 @@ function marcarFiltrosActuales(){
 function restaurarFormularioDesdeURL() {
   categoriasSeleccionadasActuales = [...categorias];
   autoresSeleccionadosActuales = [...autores];
+  personajesSeleccionadosActuales = [...personajes];
 
   if (categoriasSearch) categoriasSearch.value = "";
   if (autoresSearch) autoresSearch.value = "";
+  if (personajesSearch) personajesSearch.value = "";
 
   renderCategoriasOptions();
   renderAutoresOptions();
+  renderPersonajesOptions();
   marcarFiltrosActuales();
   closeAllPanels();
 
   if (genrePanel) genrePanel.scrollTop = 0;
   if (categoriasPanel) categoriasPanel.scrollTop = 0;
   if (autoresPanel) autoresPanel.scrollTop = 0;
+  if (personajesPanel) personajesPanel.scrollTop = 0;
 }
 
 function resetearFormularioVisual() {
@@ -257,6 +286,7 @@ function resetearFormularioVisual() {
 
   categoriasSeleccionadasActuales = [];
   autoresSeleccionadosActuales = [];
+  personajesSeleccionadosActuales = [];
 
   document.querySelectorAll('input[name="estado"]').forEach(input => {
     input.checked = input.value === "";
@@ -271,15 +301,18 @@ function resetearFormularioVisual() {
 
   if (categoriasSearch) categoriasSearch.value = "";
   if (autoresSearch) autoresSearch.value = "";
+  if (personajesSearch) personajesSearch.value = "";
 
   renderCategoriasOptions();
   renderAutoresOptions();
+  renderPersonajesOptions();
 
   closeAllPanels();
 
   if (genrePanel) genrePanel.scrollTop = 0;
   if (categoriasPanel) categoriasPanel.scrollTop = 0;
   if (autoresPanel) autoresPanel.scrollTop = 0;
+  if (personajesPanel) personajesPanel.scrollTop = 0;
 
   updateSummaries();
 }
@@ -299,6 +332,7 @@ function updateFilterCount(){
   total += genres.length;
   total += categorias.length;
   total += autores.length;
+  total += personajes.length;
   if (estado) total += 1;
   if (idioma) total += 1;
   if (sinCensura === "1") total += 1;
@@ -369,6 +403,19 @@ toggleAutoresBtn?.addEventListener("click", function(){
   }
 });
 
+togglePersonajesBtn?.addEventListener("click", function(){
+  if (!personajesPanel) return;
+
+  const willOpen = !personajesPanel.classList.contains("is-open");
+  closeAllPanels();
+
+  if (willOpen) {
+    personajesPanel.classList.add("is-open");
+    personajesPanel.scrollTop = 0;
+    personajesSearch?.focus();
+  }
+});
+
 toggleEstadoBtn?.addEventListener("click", function(){
   if (!estadoPanel) return;
 
@@ -395,6 +442,10 @@ autoresSearch?.addEventListener("input", function(){
   renderAutoresOptions(this.value);
 });
 
+personajesSearch?.addEventListener("input", function(){
+  renderPersonajesOptions(this.value);
+});
+
 document.addEventListener("click", function(e){
   const link = e.target.closest("a");
   if (link) {
@@ -416,6 +467,10 @@ document.addEventListener("click", function(e){
 
   if (toggleAutoresBtn && autoresPanel && !toggleAutoresBtn.contains(e.target) && !autoresPanel.contains(e.target)) {
     autoresPanel.classList.remove("is-open");
+  }
+
+  if (togglePersonajesBtn && personajesPanel && !togglePersonajesBtn.contains(e.target) && !personajesPanel.contains(e.target)) {
+    personajesPanel.classList.remove("is-open");
   }
 
   if (toggleEstadoBtn && estadoPanel && !toggleEstadoBtn.contains(e.target) && !estadoPanel.contains(e.target)) {
@@ -458,6 +513,21 @@ document.addEventListener("change", function(e){
     return;
   }
 
+  if (e.target.matches('input[name="personaje"]')) {
+    const value = e.target.value;
+
+    if (e.target.checked) {
+      if (!personajesSeleccionadosActuales.includes(value)) {
+        personajesSeleccionadosActuales.push(value);
+      }
+    } else {
+      personajesSeleccionadosActuales = personajesSeleccionadosActuales.filter(v => v !== value);
+    }
+
+    updateSummaries();
+    return;
+  }
+
   if (
     e.target.matches('input[name="genre"]') ||
     e.target.matches('input[name="estado"]') ||
@@ -485,6 +555,7 @@ filterForm?.addEventListener("submit", function(e){
 
   categoriasSeleccionadasActuales.forEach(c => nuevosParams.append("categoria", c));
   autoresSeleccionadosActuales.forEach(a => nuevosParams.append("autor", a));
+  personajesSeleccionadosActuales.forEach(p => nuevosParams.append("personaje", p));
 
   const estadoSeleccionado = document.querySelector('input[name="estado"]:checked')?.value || "";
   const idiomaSeleccionado = document.querySelector('input[name="idioma"]:checked')?.value || "";
@@ -510,6 +581,7 @@ function buildQuery(pageNum){
   genres.forEach(g => params.append("genre", g));
   categorias.forEach(c => params.append("categoria", c));
   autores.forEach(a => params.append("autor", a));
+  personajes.forEach(p => params.append("personaje", p));
   if (estado) params.set("estado", estado);
   if (idioma) params.set("idioma", idioma);
   if (sinCensura === "1") params.set("sin_censura", "1");
@@ -551,6 +623,14 @@ function filtrarCatalogo(data){
       if (!item.autor) return false;
       const itemAutores = item.autor.toLowerCase().split(",").map(a => a.trim());
       return autores.every(a => itemAutores.includes(a.toLowerCase()));
+    });
+  }
+
+  if (personajes.length > 0){
+    filtrados = filtrados.filter(item => {
+      if (!item.personajes) return false;
+      const itemPersonajes = item.personajes.toLowerCase().split(",").map(p => p.trim());
+      return personajes.every(p => itemPersonajes.includes(p.toLowerCase()));
     });
   }
 
@@ -650,6 +730,7 @@ async function init(){
   renderGenreOptions();
   renderCategoriasOptions();
   renderAutoresOptions();
+  renderPersonajesOptions();
   marcarFiltrosActuales();
   updateFilterCount();
 
@@ -729,12 +810,13 @@ function acomodarInputSobreTeclado(inputEl) {
 // Aplicarlo a los dos inputs
 blindarInputBuscador(categoriasSearch, "catalogo_categoria_search");
 blindarInputBuscador(autoresSearch, "catalogo_autor_search");
+blindarInputBuscador(personajesSearch, "catalogo_personaje_search");
 
 // Reacomodar si cambia el viewport al abrir/cerrar teclado
 if (window.visualViewport) {
   const reacomodarSiActivo = () => {
     const active = document.activeElement;
-    if (active === categoriasSearch || active === autoresSearch) {
+    if (active === categoriasSearch || active === autoresSearch || active === personajesSearch) {
       acomodarInputSobreTeclado(active);
     }
   };
@@ -756,6 +838,7 @@ function bloquearEnter(inputEl) {
 // Aplicar
 bloquearEnter(categoriasSearch);
 bloquearEnter(autoresSearch);
+bloquearEnter(personajesSearch);
 
 function mejorarClearInput(inputEl) {
   if (!inputEl) return;
@@ -810,13 +893,4 @@ function mejorarClearInput(inputEl) {
 // Aplicar
 mejorarClearInput(categoriasSearch);
 mejorarClearInput(autoresSearch);
-
-btn.style.color = "#a78bfa";
-btn.style.transition = "0.2s";
-
-btn.addEventListener("mouseenter", () => {
-  btn.style.color = "#fff";
-});
-btn.addEventListener("mouseleave", () => {
-  btn.style.color = "#a78bfa";
-});
+mejorarClearInput(personajesSearch);

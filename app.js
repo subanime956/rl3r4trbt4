@@ -9,16 +9,27 @@ fetch("data-r.json")
         const card = document.createElement("div");
         card.className = "card";
 
-        card.innerHTML = `
-            <a href="${item.play}">
-                <div class="thumb">
-                    <img src="${item.img}" loading="lazy">
-                    <div class="label">${item.label}</div>
-                </div>
-                <div class="card-title">${item.title}</div>
-            </a>
-        `;
+card.innerHTML = `
+    <a href="${item.play}">
+        <div class="thumb">
 
+            <img src="${item.img}" loading="lazy">
+
+            <div class="label lang">
+                ${item.label}
+            </div>
+
+            <div class="label ep">
+                ${item.ep}
+            </div>
+
+        </div>
+
+        <div class="card-title">
+            ${item.title}
+        </div>
+    </a>
+`;
         grid.appendChild(card);
     });
 

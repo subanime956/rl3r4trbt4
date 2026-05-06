@@ -6,10 +6,10 @@ body {
     background: #1f2937;
 }
 body *:not(.fa):not(.fa *)
-       :not(.fa-solid):not(.fa-solid *)
-       :not(.fa-regular):not(.fa-regular *)
-       :not(.fa-brands):not(.fa-brands *) {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+:not(.fa-solid):not(.fa-solid *)
+:not(.fa-regular):not(.fa-regular *)
+:not(.fa-brands):not(.fa-brands *) {
+  font-family: "Inter" !important;
 }
 
 .container {

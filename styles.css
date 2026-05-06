@@ -5,11 +5,13 @@ body {
     box-sizing: border-box;
     background: #1f2937;
 }
-body  *:not(.fa):not(.fa *)
-       :not(.fas):not(.fas *)
-       :not(.far):not(.far *)
-       :not(.fab):not(.fab *) {
-  font-family: "Inter"!important;
+body *:not(.fa):not(.fa *)
+       :not(.fa-solid):not(.fa-solid *)
+       :not(.fa-regular):not(.fa-regular *)
+       :not(.fa-brands):not(.fa-brands *)
+       :not(.fa-light):not(.fa-light *)
+       :not(.fa-thin):not(.fa-thin *) {
+  font-family: "Inter" !important;
 }
 
 

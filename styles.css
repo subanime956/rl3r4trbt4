@@ -16,7 +16,7 @@ body *:not(.fa)
        :not(.fa-regular)
        :not(.fa-brands)
        :not(.fa-light)
-       :not(.fa-thin) {
+       :not(.fa-thin) 
   font-family: "Inter"!important;
 }
 

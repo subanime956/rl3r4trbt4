@@ -259,6 +259,13 @@ option {
     width: fit-content;     /* se ajusta al contenido */
     max-width: 100%;        /* evita overflow en móvil */
 }
+.slide-top-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+}
+
 
 /* 🔥 título en 1 línea */
 .slide-title {

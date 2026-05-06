@@ -117,7 +117,7 @@ option {
 
     backdrop-filter: blur(3px);
 
-    color: #f8fafc;
+    color: #fff !important;
 }
 
 .card-title {

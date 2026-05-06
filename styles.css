@@ -6,6 +6,13 @@ body {
     box-sizing: border-box;
     background: #1f2937;
 }
+input,
+textarea,
+select,
+button,
+option {
+  font-family: "Inter" !important;
+}
 
 .container {
     max-width: 1250px;

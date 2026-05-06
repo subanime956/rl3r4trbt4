@@ -269,7 +269,7 @@ window.addEventListener("load", () => {
   if (loader) {
     loader.style.transition = "opacity .3s ease";
     loader.style.opacity = "0";
-
+ 
     setTimeout(() => {
       loader.remove();
 

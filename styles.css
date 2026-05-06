@@ -94,6 +94,19 @@ option {
 
     backdrop-filter: blur(4px);
 }
+/* idioma */
+.label.lang {
+    top: 6px;
+    left: 6px;
+    right: auto;
+}
+
+/* episodio */
+.label.ep {
+    bottom: 6px;
+    right: 6px;
+    top: auto;
+}
 
 .card-title {
     font-size: 14px;

@@ -42,7 +42,17 @@ card.innerHTML = `
 <div class="slide-content">
     <div class="slide-info">
 
-        <div class="slide-label">${item.label}</div>
+        <div class="slide-top-tags">
+
+    <div class="slide-label lang">
+        ${item.label}
+    </div>
+
+    <div class="slide-label ep">
+        ${item.ep}
+    </div>
+
+</div>
 
         <div class="slide-title">${item.title}</div>
 

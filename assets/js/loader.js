@@ -14,6 +14,6 @@ window.addEventListener("load", () => {
 
       // 🔓 liberar scroll
       document.body.classList.remove("loading");
-    }, 300);
+    }, 100);
   }
 });

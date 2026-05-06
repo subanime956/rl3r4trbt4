@@ -19,7 +19,7 @@ card.innerHTML = `
                 ${item.label}
             </div>
 
-            <div class="label ep">
+            <div class="label-ep">
                 ${item.ep}
             </div>
 

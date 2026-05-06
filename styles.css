@@ -5,7 +5,18 @@ body {
     box-sizing: border-box;
     background: #1f2937;
 }
-body *:not(.fa):not(.fa *) {
+body *:not(.fa)
+       :not(.fa *)
+       :not(.fas)
+       :not(.far)
+       :not(.fab)
+       :not(.fal)
+       :not(.fat)
+       :not(.fa-solid)
+       :not(.fa-regular)
+       :not(.fa-brands)
+       :not(.fa-light)
+       :not(.fa-thin) {
   font-family: "Inter"!important;
 }
 
@@ -233,7 +244,7 @@ body *:not(.fa):not(.fa *) {
     margin-bottom: 5px;
     background: rgba(0, 0, 0, 0.75);
     color: #fff;
-    font-weight: 600;
+    font-weight: 500;
     padding: 4px 8px;
     border-radius: 16px;
     backdrop-filter: blur(4px);

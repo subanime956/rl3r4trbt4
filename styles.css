@@ -112,10 +112,12 @@ option {
     right: 4px;
     top: auto;
 
-    background: rgba(15, 23, 42, 0.68);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(51, 65, 85, 0.82);
+    border: 1px solid rgba(255,255,255,0.10);
 
     backdrop-filter: blur(3px);
+
+    color: #f8fafc;
 }
 
 .card-title {

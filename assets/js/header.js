@@ -249,3 +249,24 @@ OneSignalDeferred.push(async function (OneSignal) {
     toast.style.display = "none";
   };
 });
+
+
+
+
+
+
+
+
+
+
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+
+  if (loader) {
+    loader.style.transition = "opacity .3s ease";
+    loader.style.opacity = "0";
+
+    setTimeout(() => loader.remove(), 300);
+  }
+});

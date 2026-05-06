@@ -396,6 +396,12 @@ html, body {
 
 
 
+/* 🔒 BLOQUEAR SCROLL */
+body.loading {
+  overflow: hidden;
+}
+
+/* loader */
 #loader {
   position: fixed;
   inset: 0;

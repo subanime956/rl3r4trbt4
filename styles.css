@@ -8,7 +8,11 @@ body {
 body *:not(.fa):not(.fa *) {
   font-family: "Inter"!important;
 }
-
+body *:not(.fa-solid):not(.fa-solid *)
+       :not(.fa-regular):not(.fa-regular *)
+       :not(.fa-brands):not(.fa-brands *) {
+  font-family: "Inter"!important;
+}
 
 .container {
     max-width: 1250px;

@@ -96,15 +96,15 @@ option {
 }
 /* idioma */
 .label.lang {
-    top: 18px;
-    left: 6px;
+    top: 4px;
+    left: 4px;
     right: auto;
 }
 
 /* episodio */
 .label.ep {
-    bottom: 6px;
-    right: 6px;
+    bottom: 4px;
+    right: 4px;
     top: auto;
 }
 

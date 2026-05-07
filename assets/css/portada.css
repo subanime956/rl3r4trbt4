@@ -460,8 +460,17 @@ body{ font-family:'Inter';background: #1f2937;margin: 0 auto;
 }
 
 .rtr-lang-ico{
-  display:grid;
-  place-items:center;
+  width:26px;
+  height:26px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  line-height:1;
+  font-size:18px;
+
+  overflow:hidden;
 }
 
 .rtr-lang-pill{

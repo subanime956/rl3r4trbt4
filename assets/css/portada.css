@@ -384,13 +384,13 @@ body{ font-family:'Inter';background: #1f2937;margin: 0 auto;
 }
 
 .rtr-season.active{
-  background:#D038FF;
-  color:#08111f;
-  border-color:#D038FF;
+  background:#4c1d95;
+  color:#fff;
+  border-color:#6d28d9;
 }
 
 .rtr-season img{
-  width:42px;
+  width:40px;
   height:54px;
   object-fit:cover;
   border-radius:4px;
@@ -399,7 +399,7 @@ body{ font-family:'Inter';background: #1f2937;margin: 0 auto;
 .rtr-season strong{
   display:block;
   font-size:14px;
-  font-weight:900;
+  font-weight:700;
 }
 
 .rtr-season span span{

@@ -364,7 +364,7 @@ body{ font-family:'Inter';background: #1f2937;margin: 0 auto;
 }
 
 .rtr-season{
-  flex:0 0 220px;
+  flex:0 0 150px;
   height:75px;
   display:flex;
   align-items:center;

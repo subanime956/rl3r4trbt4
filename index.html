@@ -177,7 +177,37 @@
     <a href="/assets/link/Donar" title="Donar"><i class="fa fa-paypal"></i></a>
   </div>
 </div>
- 
+    
+ <div id="profilePanel" class="profile-panel" aria-hidden="true">
+  <div class="profile-panel-backdrop" onclick="closeProfilePanel()"></div>
+
+  <div class="profile-card" role="dialog" aria-modal="true" aria-label="Perfil local">
+    <button class="profile-card-close" type="button" onclick="closeProfilePanel()" aria-label="Cerrar">
+      <i class="fa fa-times"></i>
+    </button>
+
+    <div class="profile-card-glow"></div>
+
+    <div class="profile-card-avatar" id="profilePanelPreview">
+      <img id="profilePanelImg" alt="Foto de perfil grande">
+      <i class="fa fa-user"></i>
+    </div>
+
+    <h3 id="profilePanelTitle">Mi biblioteca</h3>
+    <p id="profilePanelSubtitle">Personaliza tu biblioteca en este dispositivo.</p>
+
+    <div class="profile-card-actions">
+      <button type="button" onclick="triggerProfileImagePicker()">
+        <i class="fa fa-camera"></i> Cambiar foto
+      </button>
+      <button type="button" class="danger" onclick="removeProfileImage()">
+        <i class="fa fa-trash"></i> Quitar
+      </button>
+    </div>
+
+  </div>
+</div>
+
 </header>
    
 

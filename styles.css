@@ -100,10 +100,24 @@ option {
     left: 3px;
     right: auto;
 
-    background: rgba(88, 28, 135, 0.88);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    border: none;
+    padding: 0;
 
-    backdrop-filter: blur(3px);
+    backdrop-filter: none;
+}
+/* bandera */
+.rtr-ep-flag{
+  width:22px;
+  height:22px;
+
+  object-fit:cover;
+  border-radius:6px;
+
+  display:block;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08);
 }
 
 /* episodio */
